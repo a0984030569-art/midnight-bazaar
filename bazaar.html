@@ -24,7 +24,7 @@
             line-height: 1.8;
             position: relative;
             overflow-x: hidden;
-            scroll-behavior: smooth; /* 點擊錨點或Top按鈕時平滑滾動 */
+            scroll-behavior: smooth;
         }
 
         /* 閃亮亮星光背景特效 */
@@ -112,7 +112,7 @@
 
         section {
             margin-bottom: 5rem;
-            scroll-margin-top: 5rem; /* 確保點擊錨點時不會被固定導覽列遮擋 */
+            scroll-margin-top: 5rem;
         }
 
         h2.section-title {
@@ -313,7 +313,7 @@
 </head>
 <body id="top-page">
 
-    <!-- 頂端導覽列 (已修正連結：首頁、關於我們、商隊品項、星夜迴響) -->
+    <!-- 頂端導覽列：已正確指向 index.html, story.html, bazaar.html, contact.html -->
     <nav>
         <a href="index.html" class="nav-brand">Eclipse Atelier 月蝕工坊</a>
         <div class="nav-links">
@@ -409,7 +409,7 @@
             </div>
         </section>
 
-        <!-- 二、深夜迴響 (加上 id 供導覽列錨點跳轉) -->
+        <!-- 二、深夜迴響 -->
         <section id="cocktail-section">
             <h2 class="section-title">二、深夜迴響・特色調酒</h2>
             <div class="grid">
@@ -420,7 +420,7 @@
                         <div class="card-desc">以紅銅壺慢火熬煮的溫熱紅酒，融入丁香、豆蔻與新鮮柑橘皮（全程無添加肉桂）...</div>
                         <div class="card-footer">
                             <span class="card-price">NT$ 450</span>
-                            <button class="detail-btn" onclick="openModal('【月暈琥珀】紅銅壺慢煮丁香豆蔻熱紅酒', '使用復古紅銅壺慢火熬煮的溫潤熱紅酒。嚴選多款香料如丁香、豆蔻與新鮮柑橘皮一同釋放風味（全程嚴格排除您不喜歡的肉桂），在寒夜中散發溫潤柔和的月暈光輝。', 'NT$ 450')">點擊觀看詳細紀事</button>
+                            <button class="detail-btn" onclick="openModal('【月暈琥珀】紅銅壺慢煮丁香豆蔻熱紅酒', '使用復古紅銅壺慢火熬煮的溫潤熱紅酒。嚴選多款香料如丁香、豆蔻與新鮮柑橘皮一同釋放風味（全程嚴格排除肉桂），在寒夜中散發溫潤柔和的月暈光輝。', 'NT$ 450')">點擊觀看詳細紀事</button>
                         </div>
                     </div>
                 </div>
@@ -487,7 +487,7 @@
             </div>
         </section>
 
-        <!-- 三、流動商隊 (加上 id 供導覽列錨點跳轉) -->
+        <!-- 三、流動商隊 -->
         <section id="caravan-section">
             <h2 class="section-title">三、流動商隊・神祕奇幻選物</h2>
             <div class="grid">
