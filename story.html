@@ -1,221 +1,223 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於我們 — Eclipse Atelier 月蝕工坊</title>
-    <!-- 引入古典襯線字體 -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>關於我們 | 月蝕工坊 Eclipse Atelier</title>
     <style>
         :root {
-            --bg-deep: #0a0a0c;
-            --bg-card: #121620;
-            --gold-primary: #d4af37;
-            --gold-light: #f3e5ab;
-            --text-main: #e2ded0;
-            --text-muted: #a39b8b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --bg-dark: #0f0e0e;
+            --bg-card: #171515;
+            --gold: #c5a059;
+            --gold-light: #e6c584;
+            --text-main: #d4d0c7;
+            --text-muted: #9e9a90;
+            --border-color: #332e29;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Noto Serif TC', 'Playfair Display', serif;
-            overflow-x: hidden;
+            font-family: "Noto Serif TC", "Songti TC", serif;
+            margin: 0;
+            padding: 0;
+            line-height: 2;
             position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            overflow-x: hidden;
         }
 
-        /* 背景閃亮星光特效 */
-        .sparkle-bg {
+        /* 閃亮亮星光背景特效 */
+        body::before {
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
             background-image: 
                 radial-gradient(white 1px, transparent 0),
-                radial-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 0);
+                radial-gradient(rgba(197, 160, 89, 0.6) 1.5px, transparent 0);
             background-size: 50px 50px, 80px 80px;
-            background-position: 0 0, 40px 40px;
+            background-position: 0 0, 25px 25px;
             opacity: 0.15;
+            z-index: -1;
             animation: twinkle 8s infinite alternate;
         }
 
         @keyframes twinkle {
-            0% { opacity: 0.1; transform: scale(1); }
-            100% { opacity: 0.25; transform: scale(1.02); }
+            0% { opacity: 0.1; }
+            100% { opacity: 0.25; }
         }
 
-        /* 頂部導覽列 */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            background: rgba(10, 10, 12, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-        }
-
-.logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
-            color: var(--gold-light);
-            letter-spacing: 2px;
-            text-decoration: none;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav ul li a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--gold-primary);
-        }
-
-        /* 故事內容主容器 */
-        .story-container {
-            position: relative;
-            z-index: 2;
-            max-width: 850px;
-            margin: 140px auto 80px auto;
-            padding: 60px 50px;
-            background: rgba(18, 22, 32, 0.7);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 6px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .story-header {
             text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 25px;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(to bottom, #141212, var(--bg-dark));
         }
 
-        .story-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            color: var(--gold-light);
-            letter-spacing: 4px;
-            margin-bottom: 10px;
+        header h1 {
+            color: var(--gold);
+            font-size: 2.8rem;
+            letter-spacing: 0.2rem;
+            margin-bottom: 0.5rem;
         }
 
-        .story-header p {
+        header p {
             color: var(--text-muted);
-            font-size: 1rem;
-            letter-spacing: 2px;
-            font-style: italic;
-        }
-
-        .story-body p {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            line-height: 2.2;
-            margin-bottom: 25px;
-            letter-spacing: 1.5px;
-            text-align: justify;
-        }
-
-        .story-quote {
-            margin: 40px 0;
-            padding: 20px 30px;
-            border-left: 3px solid var(--gold-primary);
-            background: rgba(212, 175, 55, 0.05);
-            font-style: italic;
-            color: var(--gold-light);
             font-size: 1.1rem;
-            letter-spacing: 2px;
+            letter-spacing: 0.1rem;
         }
 
-        /* 頁尾 */
-        footer {
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .about-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
         }
 
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            nav ul { gap: 15px; }
-            nav ul li a { font-size: 0.8rem; }
-            .story-container { margin: 100px 15px 40px 15px; padding: 35px 25px; }
-            .story-header h1 { font-size: 1.7rem; }
-            .story-body p { font-size: 0.95rem; }
+        .about-card::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            pointer-events: none;
+        }
+
+        h2.story-title {
+            color: var(--gold);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.15rem;
+        }
+
+        .story-text {
+            color: var(--text-main);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        .quote-box {
+            border-left: 3px solid var(--gold);
+            padding-left: 1.5rem;
+            margin: 2.5rem 0;
+            color: var(--gold-light);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .feature-item h4 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-link a {
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 0.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: var(--gold-light);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: #0a0909;
         }
     </style>
 </head>
 <body>
 
-    <!-- 背景閃亮粒子層 -->
-    <div class="sparkle-bg"></div>
-
-    <!-- 頂部導覽列 -->
     <header>
-        <a href="index.html" class="logo">Eclipse Atelier</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">首頁</a></li>
-                <li><a href="story.html" style="color: var(--gold-primary);">關於我們</a></li>
-                <li><a href="bazaar.html">商隊品項</a></li>
-                <li><a href="contact.html">星夜迴響</a></li>
-            </ul>
-        </nav>
+        <h1>月蝕工坊 Eclipse Atelier</h1>
+        <p>關於我們・深夜的避難所與流動的靈魂商隊</p>
     </header>
 
-    <!-- 故事內容 -->
-    <div class="story-container">
-        <div class="story-header">
-            <h1>【 月蝕工坊・起源手札 】</h1>
-            <p>The Legend of the Midnight Caravan</p>
-        </div>
-        <div class="story-body">
-            <p>在無光之夜與星塵交替的邊界，有一支行蹤隱秘的流動商隊。他們不隨日光趕路，專挑月色被陰影吞噬的時刻，在荒漠與古道交會處搭起暗夜黑金相間的帳篷——這便是「月蝕工坊」（Eclipse Atelier）的由來。</p>
+    <div class="container">
+        <div class="about-card">
+            <h2 class="story-title">【 隱匿於月影之下的庇護所 】</h2>
             
-            <p>工坊的創辦者深信，白日的喧囂與急促遮蔽了人們內心的真實渴望。唯有在深夜的微光中，靈魂才得以卸下防備。因此，他們自遠方異域蒐羅稀有的礦石與古銅藝品，在紅銅壺中慢火熬煮帶有香料與花香的溫熱茶湯，並以傳承自古老的烘焙工藝，揉合出帶有神秘詩篇的黑金甜點。</p>
+            <p class="story-text">
+                當白晝的喧囂落幕，城市沉入暗夜，時間彷彿在古老的黃銅齒輪與燭光中放慢了腳步。「月蝕工坊（Eclipse Atelier）」便是在這樣的時刻悄然甦醒。我們是一間融合了古典學術氣息與神祕浪漫主義的深夜餐酒館，同時也是一座流動商隊的奇幻選物所。
+            </p>
 
-            <div class="story-quote">
-                「我們不為喧囂停留，只為每一位在深夜中尋找歸宿的靈魂，熬煮一盞溫熱的香料記憶，雕琢一件帶走遠方祝福的器物。」
+            <p class="story-text">
+                在這裡，我們致敬 19 世紀的 Dark Academia 美學。厚重的沉香木桌椅、搖曳的古銅燭台、空氣中瀰漫著丁香與微醺的氣息。每一道餐點與特調，都是一場對味覺與靈魂的實驗；每一件選物，都是穿越時光而來的古老紀事。
+            </p>
+
+            <div class="quote-box">
+                「當月影吞噬光芒，真正的對話才正要開始。我們不販售時間，我們收藏深夜的靈魂碎片。」
             </div>
 
-            <p>每一盞特調、每一款甜點、每一件選物，都夾雜著沙漠的夜風與古老的傳說。當你輕輕點擊手札上的每一項物件，一段段被歲月封存的深夜紀事便會緩緩展開。願這抹古銅金的微光，能悄悄照亮你心中最柔軟的角落。</p>
+            <p class="story-text">
+                無論是尋求一處沉澱心靈的避難所，或是渴望在星光與微醺中探索未知的奇幻選物，月蝕工坊都將以最溫潤而神祕的姿態，靜靜等待您的造訪。
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>月蝕饗宴</h4>
+                    <p>嚴選頂級食材與法式工法，融合黑金松露與紅酒慢燉，打造大人系的深夜奢華饗宴。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>深夜迴響</h4>
+                    <p>無添加肉桂的溫潤香料熱紅酒與精緻特調，在復古器皿與乾冰白霧中綻放微醺美學。</p>
+                </div>
+                <div class="feature-item">
+                    <h4>流動商隊</h4>
+                    <p>古法鍛造黃銅風鈴、紫綠螢石與星辰沙漏，收藏所有關於時間與神祕學的奇幻選物。</p>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html">&larr; 返回月蝕工坊主選單</a>
+            </div>
         </div>
     </div>
 
-    <!-- 頁尾 -->
     <footer>
-        <p>&copy; 2026 Eclipse Atelier. All Rights Reserved.</p>
+        <p>&copy; 2026 月蝕工坊 Eclipse Atelier. All Rights Reserved. Dark Academia Web Design Project.</p>
     </footer>
 
 </body>
