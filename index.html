@@ -62,13 +62,13 @@
 
         @keyframes bgFade {
             0% { opacity: 0; transform: scale(1.02); }
-            12% { opacity: 0.65; } /* 稍微提高圖片亮度與能見度 */
+            12% { opacity: 0.65; }
             48% { opacity: 0.65; }
             60% { opacity: 0; transform: scale(1); }
             100% { opacity: 0; }
         }
 
-        /* 精準的暗色漸層遮罩，中央微暗、四周深沉，讓文字完美浮現 */
+        /* 精準的暗色漸層遮罩 */
         .overlay {
             position: fixed;
             top: 0;
@@ -164,7 +164,6 @@
             color: var(--gold-light);
             margin-bottom: 20px;
             letter-spacing: 6px;
-            /* 加強文字陰影與外發光，讓背景有圖也清晰可見 */
             text-shadow: 0 0 30px rgba(212, 175, 55, 0.7), 0 4px 10px rgba(0, 0, 0, 0.9);
         }
 
@@ -230,7 +229,7 @@
         <img src="lounge-right.jfif" alt="星光祕境沙發區">
     </div>
 
-    <!-- 優化後的漸層質感濾鏡 -->
+    <!-- 漸層質感濾鏡 -->
     <div class="overlay"></div>
 
     <!-- 背景閃亮粒子層 -->
@@ -240,9 +239,10 @@
     <header>
         <a href="index.html" class="logo">Eclipse Atelier</a>
         <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
             <li><a href="story.html">關於我們</a></li>
             <li><a href="bazaar.html">商隊品項</a></li>
-            <li><a href="contact.html">星夜迴響</a></li>
+            <li><a href="bazaar.html#cocktail-section">星夜迴響</a></li>
         </ul>
     </header>
 
