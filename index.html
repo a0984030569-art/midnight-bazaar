@@ -49,7 +49,6 @@
             top: 0;
             left: 0;
             opacity: 0;
-            /* 兩張圖總共 6 秒循環，每張圖顯示 3 秒 */
             animation: bgFade 6s infinite;
         }
 
@@ -63,20 +62,20 @@
 
         @keyframes bgFade {
             0% { opacity: 0; transform: scale(1.02); }
-            10% { opacity: 0.55; } /* 調整透明度讓文字更清晰 */
-            50% { opacity: 0.55; }
+            12% { opacity: 0.65; } /* 稍微提高圖片亮度與能見度 */
+            48% { opacity: 0.65; }
             60% { opacity: 0; transform: scale(1); }
             100% { opacity: 0; }
         }
 
-        /* 加上暗色半透明濾鏡，確保文字高對比與神祕感 */
+        /* 精準的暗色漸層遮罩，中央微暗、四周深沉，讓文字完美浮現 */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 12, 0.75);
+            background: radial-gradient(circle, rgba(10, 10, 12, 0.65) 0%, rgba(10, 10, 12, 0.88) 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -124,7 +123,7 @@
             color: var(--gold-light);
             letter-spacing: 3px;
             text-decoration: none;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .nav-links {
@@ -138,6 +137,7 @@
             text-decoration: none;
             font-size: 0.95rem;
             letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             transition: color 0.3s;
         }
 
@@ -164,18 +164,22 @@
             color: var(--gold-light);
             margin-bottom: 20px;
             letter-spacing: 6px;
-            text-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            /* 加強文字陰影與外發光，讓背景有圖也清晰可見 */
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.7), 0 4px 10px rgba(0, 0, 0, 0.9);
         }
 
         .hero p {
             font-size: 1.3rem;
-            color: var(--text-muted);
+            color: var(--text-main);
             letter-spacing: 4px;
             font-style: italic;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
             padding: 12px 30px;
             margin-bottom: 40px;
+            background: rgba(10, 10, 12, 0.4);
+            backdrop-filter: blur(2px);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
         }
 
         /* 按鈕群組 */
@@ -190,7 +194,7 @@
             font-family: 'Cinzel', 'Noto Serif TC', serif;
             display: inline-block;
             padding: 14px 30px;
-            background: rgba(10, 10, 12, 0.6);
+            background: rgba(10, 10, 12, 0.75);
             backdrop-filter: blur(4px);
             color: var(--gold-light);
             border: 1px solid var(--gold-primary);
@@ -199,13 +203,13 @@
             text-decoration: none;
             border-radius: 2px;
             transition: all 0.4s ease;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
         }
 
         .enter-btn:hover {
             background-color: var(--gold-primary);
             color: var(--bg-deep);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
             transform: translateY(-2px);
         }
 
@@ -226,7 +230,7 @@
         <img src="lounge-right.jfif" alt="星光祕境沙發區">
     </div>
 
-    <!-- 暗色質感濾鏡 -->
+    <!-- 優化後的漸層質感濾鏡 -->
     <div class="overlay"></div>
 
     <!-- 背景閃亮粒子層 -->
