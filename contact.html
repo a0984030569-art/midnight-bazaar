@@ -14,18 +14,20 @@
             --gold-light: #f3e5ab;
             --text-main: #e2ded0;
             --text-muted: #a39b8b;
+            --border-color: rgba(212, 175, 55, 0.3);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'Noto Serif TC', 'Playfair Display', serif;
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: 'Noto Serif TC', 'Playfair Display', serif;
+            line-height: 1.8;
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
@@ -73,7 +75,7 @@
             padding: 20px 50px;
         }
 
-        .logo {
+        header .logo {
             font-family: 'Cinzel', serif;
             font-size: 1.4rem;
             color: var(--gold-light);
@@ -88,8 +90,8 @@
         }
 
         nav ul li a {
-            color: var(--text-main);
             text-decoration: none;
+            color: var(--text-main);
             font-size: 0.9rem;
             letter-spacing: 1px;
             transition: color 0.3s;
@@ -99,90 +101,80 @@
             color: var(--gold-primary);
         }
 
-        /* 聯繫表單主容器 */
+        /* 聯繫表單區塊 */
         .contact-container {
             position: relative;
             z-index: 2;
             max-width: 750px;
-            margin: 140px auto 80px auto;
+            margin: 140px auto 60px auto;
+            background-color: var(--bg-card);
             padding: 50px 40px;
-            background: rgba(18, 22, 32, 0.7);
-            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 6px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-color);
         }
 
-        .contact-header {
+        .contact-container h1 {
             text-align: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 20px;
-        }
-
-        .contact-header h1 {
             font-family: 'Cinzel', serif;
-            font-size: 2rem;
             color: var(--gold-light);
-            letter-spacing: 4px;
             margin-bottom: 10px;
+            font-size: 2rem;
+            letter-spacing: 4px;
         }
 
-        .contact-header p {
+        .contact-container p.subtitle {
+            text-align: center;
             color: var(--text-muted);
+            margin-bottom: 35px;
             font-size: 0.95rem;
-            letter-spacing: 2px;
             font-style: italic;
+            letter-spacing: 2px;
         }
 
-        /* 表單樣式 */
         .form-group {
             margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
+            margin-bottom: 8px;
             font-size: 0.95rem;
             color: var(--gold-light);
-            margin-bottom: 8px;
             letter-spacing: 1.5px;
         }
 
-        .form-group input,
+        .form-group input, 
         .form-group textarea {
             width: 100%;
             padding: 12px 18px;
-            background: rgba(10, 10, 12, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
-            color: var(--text-main);
-            font-family: 'Noto Serif TC', serif;
+            background-color: rgba(10, 10, 12, 0.8);
             font-size: 0.95rem;
+            color: var(--text-main);
+            font-family: inherit;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .form-group input:focus,
+        .form-group input:focus, 
         .form-group textarea:focus {
             outline: none;
             border-color: var(--gold-primary);
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
         .submit-btn {
             font-family: 'Cinzel', 'Noto Serif TC', serif;
             width: 100%;
             padding: 14px;
-            background: transparent;
+            background-color: transparent;
             color: var(--gold-light);
             border: 1px solid var(--gold-primary);
+            border-radius: 4px;
             font-size: 1.05rem;
             letter-spacing: 3px;
             cursor: pointer;
-            border-radius: 4px;
             transition: all 0.4s ease;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
         }
@@ -194,15 +186,22 @@
             transform: translateY(-2px);
         }
 
-        /* 頁尾 */
+        #form-status {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+            color: var(--gold-primary);
+            letter-spacing: 1px;
+        }
+
         footer {
             position: relative;
             z-index: 2;
             text-align: center;
             padding: 40px 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
             color: var(--text-muted);
             font-size: 0.85rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
             letter-spacing: 2px;
         }
 
@@ -211,13 +210,13 @@
             nav ul { gap: 15px; }
             nav ul li a { font-size: 0.8rem; }
             .contact-container { margin: 100px 15px 40px 15px; padding: 30px 20px; }
-            .contact-header h1 { font-size: 1.5rem; }
+            .contact-container h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 背景閃亮粒子層 -->
+    <!-- 背景閃亮星光特效 -->
     <div class="sparkle-bg"></div>
 
     <!-- 頂部導覽列 -->
@@ -228,43 +227,84 @@
                 <li><a href="index.html">首頁</a></li>
                 <li><a href="story.html">關於我們</a></li>
                 <li><a href="bazaar.html">商隊品項</a></li>
-                <li><a href="contact.html" style="color: var(--gold-primary);">信鴿傳書</a></li>
+                <li><a href="contact.html" style="color: var(--gold-primary);">星夜迴響</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- 聯繫表單主體 -->
     <div class="contact-container">
-        <div class="contact-header">
-            <h1>【 星夜迴響・祕密通訊 】</h1>
-            <p>Send a Message to the Midnight Caravan</p>
-        </div>
+        <h1>【 星夜迴響・祕密通訊 】</h1>
+        <p class="subtitle">留下您的信箋與絮語，將透過信鴿悄悄送達月蝕工坊的管理員信箱！</p>
         
-        <!-- 表單串接 (請將 action 內的網址替換為你實際可用的 Formspree 接收端點) -->
-        <form action="https://formspree.io/f/你的表單代碼" method="POST">
+        <form id="ajax-form">
+            <input type="hidden" name="_subject" value="【Eclipse Atelier 月蝕工坊】收到新的星夜信箋與委託！">
+            <input type="hidden" name="_template" value="table">
+
             <div class="form-group">
                 <label for="name">您的稱謂 / 旅人姓名</label>
-                <input type="text" id="name" name="name" required placeholder="請輸入您的稱謂...">
+                <input type="text" id="name" name="name" required placeholder="例如：林小姐">
             </div>
-            
+
             <div class="form-group">
                 <label for="email">您的電子信箱 / 回音信箋</label>
-                <input type="email" id="email" name="email" required placeholder="name@example.com">
+                <input type="email" id="email" name="email" required placeholder="your_email@example.com">
             </div>
-            
+
             <div class="form-group">
-                <label for="message">您的絮語 / 委託紀事</label>
-                <textarea id="message" name="message" required placeholder="在此留下您給月蝕商隊的訊息或靈魂絮語..."></textarea>
+                <label for="phone">聯絡電話</label>
+                <input type="tel" id="phone" name="phone" required placeholder="例如：0912-345-678">
             </div>
-            
-            <button type="submit" class="submit-btn">【 釋出星夜信箋 】</button>
+
+            <div class="form-group">
+                <label for="message">您的絮語或委託紀事</label>
+                <textarea id="message" name="message" rows="5" required placeholder="請輸入您想預約的時間、想尋找的選物，或給月蝕工坊的靈魂絮語..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">【 釋出星夜信箋 】</button>
+            <div id="form-status"></div>
         </form>
     </div>
 
-    <!-- 頁尾 -->
     <footer>
-        <p>&copy; 2026 Eclipse Atelier. All Rights Reserved.</p>
+        &copy; 2026 Eclipse Atelier 月蝕工坊 All Rights Reserved.
     </footer>
+
+    <script>
+        const form = document.getElementById('ajax-form');
+        const statusDiv = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = "0.7";
+            statusDiv.textContent = "✨ 正在透過星夜伺服器傳送信箋...";
+
+            const formData = new FormData(form);
+
+            fetch("https://formsubmit.co/ajax/a0984030569@gmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    statusDiv.textContent = "✨ 發送成功！信箋已確實送達月蝕工坊的信箱！";
+                    form.reset();
+                } else {
+                    statusDiv.textContent = "❌ 發送失敗，請稍後再試。";
+                }
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+            })
+            .catch(error => {
+                statusDiv.textContent = "❌ 發生錯誤，請檢查網路連線。";
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+            });
+        });
+    </script>
 
 </body>
 </html>
