@@ -1,1 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse Atelier — 月蝕工坊</title>
+    <!-- 引入古典襯線字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0a0c;
+            --bg-card: #121620;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #e2ded0;
+            --text-muted: #a39b8b;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Noto Serif TC', 'Playfair Display', serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景閃亮星光特效 */
+        .sparkle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                radial-gradient(white 1px, transparent 0),
+                radial-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 0);
+            background-size: 50px 50px, 80px 80px;
+            background-position: 0 0, 40px 40px;
+            opacity: 0.15;
+            animation: twinkle 8s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.1; transform: scale(1); }
+            100% { opacity: 0.25; transform: scale(1.02); }
+        }
+
+        /* 導覽列 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav ul li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* 內容區塊通用樣式 */
+        .section {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        /* 網格佈局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .card-hint {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+            letter-spacing: 1px;
+            text-align: right;
+        }
+
+        /* 燈箱 Modal 樣式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid var(--gold-primary);
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--gold-light);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--gold-primary);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .modal-text {
+            font-size: 1rem;
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .modal-story {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 20px;
+            font-style: italic;
+        }
+
+        /* 頁尾 */
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav ul { display: none; }
+            .modal-img { height: 220px; }
+            .modal-body { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景閃亮粒子層 -->
+    <div class="sparkle-bg"></div>
+
+    <!-- 頂部導覽列 -->
+    <header>
+        <a href="#" class="logo">Eclipse Atelier</a>
+        <nav>
+            <ul>
+                <li><a href="#bakery">月蝕烘焙</a></li>
+                <li><a href="#curiosities">流動商隊</a></li>
+                <li><a href="#elixirs">深夜特調</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 1. 月蝕烘焙區 -->
+    <section id="bakery" class="section">
+        <div class="section-title">
+            <h2>【月蝕烘焙・深夜甜點】</h2>
+            <p>Midnight Pastry</p>
+        </div>
+        <div class="grid-container">
+            <!-- 卡片 1 -->
+            <div class="card" onclick="openModal('bread-rose.jpg', '【黑夜玫瑰】波斯玫瑰荔枝歐包', '外皮酥脆帶有麥香，內裡揉合了濃郁的波斯玫瑰露與清甜荔枝果肉，交織出神秘而高雅的風味。', '在月蝕商隊行經波斯邊境的星夜下，首席烘焙師將收集自晨露中的玫瑰花瓣揉入老麵發酵，並加入清甜多汁的荔枝乾。當外皮烘烤至金黃酥脆時，切開瞬間漫出濃郁花香，是撫慰孤獨旅人味蕾的暗夜詩篇。')">
+                <div class="card-img-wrapper"><img src="bread-rose.jpg" alt="黑夜玫瑰"></div>
+                <div class="card-content">
+                    <div class="card-title">【黑夜玫瑰】波斯玫瑰荔枝歐包</div>
+                    <div class="card-desc">外皮酥脆帶有麥香，內裡揉合了濃郁的波斯玫瑰露與清甜荔枝果肉...</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 2 -->
+            <div class="card" onclick="openModal('dacquoise-fig.jpg', '【暮光之城】無花果紅酒蜜漬達克瓦茲', '外酥內軟的經典法式甜點，夾入經紅酒與香料慢火熬煮的無花果乾，口感層次深邃。', '黃昏交替之際，商隊點起營火熬煮的特製紅酒無花果醬，成為這款達克瓦茲的靈魂內餡。外層酥鬆、內裡濕潤綿密，紅酒的微醺與無花果的甘甜在口中緩緩化開。')">
+                <div class="card-img-wrapper"><img src="dacquoise-fig.jpg" alt="暮光之城"></div>
+                <div class="card-content">
+                    <div class="card-title">【暮光之城】無花果紅酒蜜漬達克瓦茲</div>
+                    <div class="card-desc">外酥內軟的經典法式甜點，夾入經紅酒與香料慢火熬煮的無花果乾...</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 3 -->
+            <div class="card" onclick="openModal('brownie-choco.jpg', '【日蝕可可】70% 炙燒黑巧布朗尼', '選用 70% 頂級莊園黑巧克力，表層經微火炙燒帶出微苦焦香，濃郁濕潤，直擊靈魂。', '象徵日蝕奇觀的濃厚系甜點。嚴選 70% 莊園黑巧克力製成，出爐前以古銅噴槍炙燒表層，鎖住濃郁濕潤的內心與微脆焦糖外殼，苦甜交織，直擊靈魂深處。')">
+                <div class="card-img-wrapper"><img src="brownie-choco.jpg" alt="日蝕可可"></div>
+                <div class="card-content">
+                    <div class="card-title">【日蝕可可】70% 炙燒黑巧布朗尼</div>
+                    <div class="card-desc">選用 70% 頂級莊園黑巧克力，表層經微火炙燒帶出微苦焦香...</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 4 -->
+            <div class="card" onclick="openModal('roll-cinnamon.jpg', '【月暈琥珀】焦糖海鹽核桃肉桂捲', '濃郁肉桂香氣伴隨手工熬煮焦糖海鹽醬，鋪上香脆核桃碎，是深夜裡最溫暖的罪惡療癒。', '在月暈籠罩的營地裡，空氣中總是飄散著濃郁的肉桂香。手工揉製的麵團捲入滿滿香料，淋上主廚特製的焦糖海鹽醬與香脆核桃，是深夜裡最奢侈的溫暖罪惡。')">
+                <div class="card-img-wrapper"><img src="roll-cinnamon.jpg" alt="月暈琥珀"></div>
+                <div class="card-content">
+                    <div class="card-title">【月暈琥珀】焦糖海鹽核桃肉桂捲</div>
+                    <div class="card-desc">濃郁肉桂香氣伴隨手工熬煮焦糖海鹽醬，鋪上香脆核桃碎...</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 5 -->
+            <div class="card" onclick="openModal('tart-gem.jpg', '【黑森林寶石】桑葚藍莓玫瑰塔', '如珠寶般璀璨的野生莓果鋪於酥脆塔皮上，酸甜交織著淡淡玫瑰尾韻，令人回味無窮。', '如深夜森林中閃爍的宝石。手工捏製的酥脆塔皮內填入絲滑卡士達，鋪滿野生桑葚與藍莓，綴以食用金箔與玫瑰香氣，酸甜交織出令人迷醉的奢華滋味。')">
+                <div class="card-img-wrapper"><img src="tart-gem.jpg" alt="黑森林寶石"></div>
+                <div class="card-content">
+                    <div class="card-title">【黑森林寶石】桑葚藍莓玫瑰塔</div>
+                    <div class="card-desc">如珠寶般璀璨的野生莓果鋪於酥脆塔皮上，酸甜交織著淡淡玫瑰尾韻...</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 6 -->
+            <div class="card" onclick="openModal('croissant-gilded.jpg', '【流金歲月】法式雙色巧克力可頌', '層次分明的金黃酥皮與黑金雙色交織，包裹著絲滑濃郁的巧克力內餡，演繹經典法式工藝。', '融合法式經典與流動商隊的工藝美學。層層疊疊的金黃酥皮透出黑金雙色線條，一口咬下滿嘴酥香，內裡的苦甜巧克力融化於舌尖，演繹歲月流轉中的極致美味。')">
+                <div class="card-img-wrapper"><img src="croissant-gilded.jpg" alt="流金歲月"></div>
+                <div class="card-content">
+                    <div class="card-title">【流金歲月】法式雙色巧克力可頌</div>
+                    <div class="card-desc">層次分明的金黃酥皮與黑金雙色交織，包裹著絲滑濃郁的巧克力內餡...</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 流動商隊・奇幻選物區 -->
+    <section id="curiosities" class="section">
+        <div class="section-title">
+            <h2>【流動商隊・奇幻選物】</h2>
+            <p>Wandering Curiosities</p>
+        </div>
+        <div class="grid-container">
+            <!-- 卡片 7 -->
+            <div class="card" onclick="openModal('wind-chime.jpg', '【風之語】黃銅風鈴', '手工鍛造的古銅風鈴，當深夜微風吹拂時，敲擊出如清泉般澄澈悠遠的古老音頻。', '由商隊鐵匠以古法手工鍛造的黃銅風鈴。掛在帳篷邊緣，當沙漠的深夜微風吹過，金屬碰撞出如清泉落石般澄澈悠遠的音頻，能安撫旅人疲憊浮躁的心神。')">
+                <div class="card-img-wrapper"><img src="wind-chime.jpg" alt="風之語"></div>
+                <div class="card-content">
+                    <div class="card-title">【風之語】黃銅風鈴</div>
+                    <div class="card-desc">手工鍛造的古銅風鈴，當深夜微風吹拂時，敲擊出如清泉般澄澈悠遠的古老音頻。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 8 -->
+            <div class="card" onclick="openModal('crystal-fluorite.jpg', '【星辰之淚】螢石原礦能量石', '大自然孕育的夢幻紫綠漸層原礦，在暗夜中散發幽微的星光結界能量。', '來自古老礦脈深處的天然螢石原礦。其夢幻的紫綠交織漸層，在暗夜燭光下會散發出幽微而神祕的光暈，被商隊視為能淨化磁場、凝聚星光能量的護身寶石。')">
+                <div class="card-img-wrapper"><img src="crystal-fluorite.jpg" alt="星辰之淚"></div>
+                <div class="card-content">
+                    <div class="card-title">【星辰之淚】螢石原礦能量石</div>
+                    <div class="card-desc">大自然孕育的夢幻紫綠漸層原礦，在暗夜中散發幽微的星光結界能量。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 9 -->
+            <div class="card" onclick="openModal('hourglass-brass.jpg', '【流光砂漏】古銅黃銅隨身沙漏', '精緻蝕刻工藝結合流動的沙漠微晶金沙，將流逝的時間凝結成掌心間的奢華藝術品。', '以厚實黃銅包覆的精緻隨身沙漏。內部流動的並非普通細沙，而是商隊在沙漠深處採集的微晶金沙。每一次翻轉，都將流逝的時間凝結成掌心間閃耀的藝術品。')">
+                <div class="card-img-wrapper"><img src="hourglass-brass.jpg" alt="流光砂漏"></div>
+                <div class="card-content">
+                    <div class="card-title">【流光砂漏】古銅黃銅隨身沙漏</div>
+                    <div class="card-desc">精緻蝕刻工藝結合流動的沙漠微晶金沙，將流逝的時間凝結成掌心間的奢華藝術品。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 10 -->
+            <div class="card" onclick="openModal('lantern-moroccan.jpg', '【熾焰之心】摩洛哥手工鏤空琉璃燭台', '華麗的幾何金屬與寶石紅藍琉璃交織，透出神祕而溫暖的異國光影。', '結合摩洛哥幾何工藝與手工琉璃的經典燭台。當內部燃起燭光，紅藍相間的寶石琉璃會在牆面上灑滿華麗而神祕的光影，是點亮暗夜商隊不可或缺的溫暖存在。')">
+                <div class="card-img-wrapper"><img src="lantern-moroccan.jpg" alt="熾焰之心"></div>
+                <div class="card-content">
+                    <div class="card-title">【熾焰之心】摩洛哥手工鏤空琉璃燭台</div>
+                    <div class="card-desc">華麗的幾何金屬與寶石紅藍琉璃交織，透出神祕而溫暖的異國光影。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 11 -->
+            <div class="card" onclick="openModal('ink-journal.jpg', '【夜影墨水】沉香木沾水筆與手工皮質筆記本', '沉香木雕刻沾水筆搭配古舊鞣製皮革筆記本，記錄深夜靈光乍現的私密思緒。', '專為深夜靈魂準備的書寫組合。沉香木雕刻而成的沾水筆，搭配帶著歲月痕跡的手工鞣製皮革筆記本，讓旅人能藉由深邃的夜影墨水，記錄下靈光乍現的詩篇。')">
+                <div class="card-img-wrapper"><img src="ink-journal.jpg" alt="夜影墨水"></div>
+                <div class="card-content">
+                    <div class="card-title">【夜影墨水】沉香木沾水筆與手工皮質筆記本</div>
+                    <div class="card-desc">沉香木雕刻沾水筆搭配古舊鞣製皮革筆記本，記錄深夜靈光乍現的私密思緒。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 12 -->
+            <div class="card" onclick="openModal('perfume-bottle.jpg', '【綠洲之泉】土耳其藍琉璃香氛瓶', '海水藍琉璃包覆銀質細緻雕花，凝鍊著沙漠夜風中一抹清涼而神秘的香氣。', '手工吹製的海水藍琉璃瓶身，外層包覆著精緻的銀質藤蔓雕花與土耳其石鑲嵌。瓶內封存著沙漠綠洲中帶有薄荷與尤加利香氣的精油，輕輕一開，便能喚醒沉睡的清涼微風。')">
+                <div class="card-img-wrapper"><img src="perfume-bottle.jpg" alt="綠洲之泉"></div>
+                <div class="card-content">
+                    <div class="card-title">【綠洲之泉】土耳其藍琉璃香氛瓶</div>
+                    <div class="card-desc">海水藍琉璃包覆銀質細緻雕花，凝鍊著沙漠夜風中一抹清涼而神秘的香氣。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 深夜商隊・奇幻特調區 -->
+    <section id="elixirs" class="section">
+        <div class="section-title">
+            <h2>【深夜商隊・奇幻特調】</h2>
+            <p>Moonlit Elixirs</p>
+        </div>
+        <div class="grid-container">
+            <!-- 卡片 13 -->
+            <div class="card" onclick="openModal('tea-cinnamon.jpg', '【月暈琥珀】土耳其慢煮肉桂熱紅茶', '以傳統紅銅壺慢火熬煮的深邃琥珀茶湯，伴隨肉桂與丁香的溫暖香氣。', '在鋪著波斯地毯的帳篷中，以紅銅壺在沙盤上以炭火慢煮的經典紅茶。深邃的琥珀茶湯交織著肉桂與丁香的溫暖辛香，是寒冷深夜裡最暖心的防護罩。')">
+                <div class="card-img-wrapper"><img src="tea-cinnamon.jpg" alt="月暈琥珀"></div>
+                <div class="card-content">
+                    <div class="card-title">【月暈琥珀】土耳其慢煮肉桂熱紅茶</div>
+                    <div class="card-desc">以傳統紅銅壺慢火熬煮的深邃琥珀茶湯，伴隨肉桂與丁香的溫暖香氣。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 14 -->
+            <div class="card" onclick="openModal('tea-mint.jpg', '【綠洲薄荷】摩洛哥新鮮現煮薄荷綠茶', '野生薄荷在澄澈綠茶中舒展，帶來沙漠夜風般清涼舒暢的草本氣息。', '使用摩洛哥銀雕長嘴壺現煮，將大量野生鮮綠薄荷投入澄澈綠茶中。入口瞬間，濃郁的草本清涼感直衝鼻腔，彷彿吹拂過沙漠綠洲的拂曉涼風。')">
+                <div class="card-img-wrapper"><img src="tea-mint.jpg" alt="綠洲薄荷"></div>
+                <div class="card-content">
+                    <div class="card-title">【綠洲薄荷】摩洛哥新鮮現煮薄荷綠茶</div>
+                    <div class="card-desc">野生薄荷在澄澈綠茶中舒展，帶來沙漠夜風般清涼舒暢的草本氣息。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 15 -->
+            <div class="card" onclick="openModal('tea-rose.jpg', '【波斯玫瑰】晨曦玫瑰露拿鐵', '金黃溫潤的拿鐵奶泡上撒著珍貴波斯玫瑰花瓣碎粒與金箔，演繹極致浪漫。', '將濃縮拿鐵注入金黃色澤的特製杯中，綿密奶泡上灑滿了珍貴的波斯乾燥玫瑰花瓣碎粒與食用金箔。每一口都是花香與奶香交織的極致浪漫。')">
+                <div class="card-img-wrapper"><img src="tea-rose.jpg" alt="波斯玫瑰"></div>
+                <div class="card-content">
+                    <div class="card-title">【波斯玫瑰】晨曦玫瑰露拿鐵</div>
+                    <div class="card-desc">金黃溫潤的拿鐵奶泡上撒著珍貴波斯玫瑰花瓣碎粒與金箔，演繹極致浪漫。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 16 -->
+            <div class="card" onclick="openModal('tea-cocoa.jpg', '【沙漠金磚】黃金薑汁黑糖熱可可', '濃郁滑順的黑可可交織微辣黃金薑粉與黑糖香氣，撫慰每一個寒冷深夜。', '厚實的手工陶杯裝滿濃郁滑順的黑可可，表面覆蓋綿密奶泡，並撒上微辣的黃金薑粉與手作黑糖粒。溫暖微辣的口感直透心底，是冬夜療癒的最佳解方。')">
+                <div class="card-img-wrapper"><img src="tea-cocoa.jpg" alt="沙漠金磚"></div>
+                <div class="card-content">
+                    <div class="card-title">【沙漠金磚】黃金薑汁黑糖熱可可</div>
+                    <div class="card-desc">濃郁滑順的黑可可交織微辣黃金薑粉與黑糖香氣，撫慰每一個寒冷深夜。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 17 -->
+            <div class="card" onclick="openModal('tea-silverneedle-dark.jpg', '【星河銀針】雪松白毫黑金冷萃茶', '深邃琥珀茶湯中帶有細緻金屬閃粉，煙燻黑金杯具映照出如星河般的冷萃茶韻。', '顛覆傳統的暗黑冷萃美學。深邃的琥珀茶湯中融入了食用金屬微光閃粉，搭配刻有金圖騰的煙燻黑玻璃杯。在燭光下緩緩旋轉，猶如將整片星河握在手中。')">
+                <div class="card-img-wrapper"><img src="tea-silverneedle-dark.jpg" alt="星河銀針"></div>
+                <div class="card-content">
+                    <div class="card-title">【星河銀針】雪松白毫黑金冷萃茶</div>
+                    <div class="card-desc">深邃琥珀茶湯中帶有細緻金屬閃粉，煙燻黑金杯具映照出如星河般的冷萃茶韻。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+            <!-- 卡片 18 -->
+            <div class="card" onclick="openModal('milk-lavender.jpg', '【月光香料】豆蔻薰衣草溫牛奶', '溫潤乳白奶泡點綴法國食用薰衣草與綠豆蔻粉，引領靈魂進入平靜安穩的夢境。', '以溫潤乳白陶杯盛裝的安神熱牛奶。細緻奶泡上漂浮著來自法國的紫色食用薰衣草，並撒上微量綠豆蔻粉。獨特的草本香氣能撫平焦慮，引領靈魂進入平靜夢境。')">
+                <div class="card-img-wrapper"><img src="milk-lavender.jpg" alt="月光香料"></div>
+                <div class="card-content">
+                    <div class="card-title">【月光香料】豆蔻薰衣草溫牛奶</div>
+                    <div class="card-desc">溫潤乳白奶泡點綴法國食用薰衣草與綠豆蔻粉，引領靈魂進入平靜安穩的夢境。</div>
+                    <span class="card-hint">點擊觀看詳細紀事 ➔</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 Eclipse Atelier. All Rights Reserved.</p>
+    </footer>
+
+    <!-- 互動燈箱 Modal 結構 -->
+    <div id="itemModal" class="modal-overlay" onclick="closeModalOnOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImg" class="modal-img" src="" alt="">
+            <div class="modal-body">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <p id="modalText" class="modal-text"></p>
+                <p id="modalStory" class="modal-story"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 燈箱互動控制 Script -->
+    <script>
+        function openModal(imgSrc, title, desc, story) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = desc;
+            document.getElementById('modalStory').innerText = "【商隊手札紀事】：" + story;
+            document.getElementById('itemModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // 背景禁止捲動
+        }
+
+        function closeModal() {
+            document.getElementById('itemModal').classList.remove('active');
+            document.body.style.overflow = 'auto'; // 恢復背景捲動
+        }
+
+        function closeModalOnOutside(event) {
+            if (event.target.id === 'itemModal') {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
