@@ -53,7 +53,7 @@
             100% { opacity: 0.25; transform: scale(1.02); }
         }
 
-        /* 導覽列 */
+        /* 頂部品牌標誌 */
         header {
             position: absolute;
             top: 0;
@@ -106,12 +106,36 @@
             border-top: 1px solid rgba(212, 175, 55, 0.3);
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             padding: 12px 30px;
+            margin-bottom: 40px;
+        }
+
+        /* 進入第二頁的古銅金質感按鈕 */
+        .enter-btn {
+            font-family: 'Cinzel', 'Noto Serif TC', serif;
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            color: var(--gold-light);
+            border: 1px solid var(--gold-primary);
+            font-size: 1.05rem;
+            letter-spacing: 3px;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .enter-btn:hover {
+            background-color: var(--gold-primary);
+            color: var(--bg-deep);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
             header { padding: 20px 30px; }
             .hero h1 { font-size: 2.5rem; letter-spacing: 3px; }
-            .hero p { font-size: 1rem; }
+            .hero p { font-size: 1rem; padding: 10px 15px; }
         }
     </style>
 </head>
@@ -122,13 +146,14 @@
 
     <!-- 頂部品牌標誌 -->
     <header>
-        <a href="#" class="logo">Eclipse Atelier</a>
+        <a href="index.html" class="logo">Eclipse Atelier</a>
     </header>
 
     <!-- 首頁主要視覺 Banner -->
     <section class="hero">
         <h1>Eclipse Atelier</h1>
         <p>— 尋找深夜裡的一抹微光 —</p>
+        <a href="bazaar.html" class="enter-btn">【 進入深夜商隊 】</a>
     </section>
 
 </body>
