@@ -12,6 +12,7 @@
             --gold-light: #f3e5ab;
             --text-main: #e2ded0;
             --text-muted: #a39b8b;
+            --border-color: #332e29;
         }
 
         * {
@@ -141,7 +142,7 @@
             max-width: 900px;
             margin: 4rem auto;
             padding: 3rem;
-            background: rgba(15, 14, 14, 0.85);
+            background: rgba(15, 14, 14, 0.88);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
@@ -166,9 +167,49 @@
             text-align: justify;
         }
 
+        /* 復古公告框 (營業時間與神祕規則) */
+        .notice-board {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(23, 21, 21, 0.95);
+            border: 1px dashed var(--gold-primary);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .notice-board h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-light);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .notice-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notice-list li {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .notice-list li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--gold-primary);
+        }
+
         .signature {
             text-align: right;
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             font-style: italic;
             color: var(--gold-primary);
             letter-spacing: 2px;
@@ -200,6 +241,17 @@
         <h1>關於我們・起源手札</h1>
         <p>在月色與暗影交織的深夜裡，「月蝕工坊（Eclipse Atelier）」悄然推開大門。這是一個結合 Dark Academia 暗黑美學、古樸神祕與微醺浪漫的避風港。我們遠離塵囂，專注於提供頂級的黑金料理、手工特色調酒，以及流動商隊帶來的奇幻選物。</p>
         <p>每一盞燭光、每一面古老星象圖、每一件精心挑選的選物，都承載著一段故事。在這裡，時間彷彿慢了下來，邀請您卸下白日的喧囂，一同沉浸在永恆的深夜迴響之中。</p>
+        
+        <!-- 新增的復古公告框：營業時間與神祕規則 -->
+        <div class="notice-board">
+            <h3>— 閣樓公告・工坊守則 —</h3>
+            <ul class="notice-list">
+                <li><strong>營業時間：</strong>逢月蝕之夜當日 22:00 至黎明微光現身。</li>
+                <li><strong>注意事項：</strong>本店嚴禁喧嘩，僅招待尋找靈魂碎片的夜行者。</li>
+                <li><strong>預約指引：</strong>欲品嘗深夜迴響或預定選物者，請透過星夜迴響信笺傳遞您的訊息。</li>
+            </ul>
+        </div>
+
         <div class="signature">— 月蝕工坊主理人 敬上</div>
     </main>
 
