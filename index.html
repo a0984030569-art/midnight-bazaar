@@ -53,7 +53,7 @@
             100% { opacity: 0.25; transform: scale(1.02); }
         }
 
-        /* 頂部品牌標誌 */
+        /* 頂部品牌標誌與導覽列 */
         header {
             position: absolute;
             top: 0;
@@ -74,6 +74,24 @@
             letter-spacing: 3px;
             text-decoration: none;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: var(--gold-primary);
         }
 
         /* 首頁核心 Banner 區塊 */
@@ -109,15 +127,22 @@
             margin-bottom: 40px;
         }
 
-        /* 進入第二頁的古銅金質感按鈕 */
+        /* 按鈕群組 */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         .enter-btn {
             font-family: 'Cinzel', 'Noto Serif TC', serif;
             display: inline-block;
-            padding: 14px 35px;
+            padding: 14px 30px;
             background: transparent;
             color: var(--gold-light);
             border: 1px solid var(--gold-primary);
-            font-size: 1.05rem;
+            font-size: 1rem;
             letter-spacing: 3px;
             text-decoration: none;
             border-radius: 2px;
@@ -134,8 +159,10 @@
 
         @media (max-width: 768px) {
             header { padding: 20px 30px; }
+            .nav-links { display: none; }
             .hero h1 { font-size: 2.5rem; letter-spacing: 3px; }
             .hero p { font-size: 1rem; padding: 10px 15px; }
+            .btn-group { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -144,16 +171,23 @@
     <!-- 背景閃亮粒子層 -->
     <div class="sparkle-bg"></div>
 
-    <!-- 頂部品牌標誌 -->
+    <!-- 頂部品牌標誌與導覽 -->
     <header>
         <a href="index.html" class="logo">Eclipse Atelier</a>
+        <ul class="nav-links">
+            <li><a href="story.html">關於我們</a></li>
+            <li><a href="bazaar.html">商隊品項</a></li>
+        </ul>
     </header>
 
     <!-- 首頁主要視覺 Banner -->
     <section class="hero">
         <h1>Eclipse Atelier</h1>
         <p>— 尋找深夜裡的一抹微光 —</p>
-        <a href="bazaar.html" class="enter-btn">【 進入深夜商隊 】</a>
+        <div class="btn-group">
+            <a href="story.html" class="enter-btn">【 關於我們・起源手札 】</a>
+            <a href="bazaar.html" class="enter-btn">【 進入深夜商隊 】</a>
+        </div>
     </section>
 
 </body>
