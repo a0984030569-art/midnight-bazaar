@@ -1,46 +1,93 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>關於我們 | 月蝕工坊 Eclipse Atelier</title>
+    <title>關於我們 — 月蝕工坊 Eclipse Atelier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f0e0e;
-            --bg-card: #171515;
-            --gold: #c5a059;
-            --gold-light: #e6c584;
-            --text-main: #d4d0c7;
-            --text-muted: #9e9a90;
-            --border-color: #332e29;
+            --bg-deep: #0a0a0c;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #e2ded0;
+            --text-muted: #a39b8b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: "Noto Serif TC", "Songti TC", serif;
-            margin: 0;
-            padding: 0;
-            line-height: 2;
+            font-family: 'Noto Serif TC', 'Playfair Display', serif;
+            min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* 閃亮亮星光背景特效 */
-        body::before {
-            content: "";
+        /* 3秒輪轉背景圖層 */
+        .hero-slideshow {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .hero-slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: bgFade 6s infinite;
+        }
+
+        .hero-slideshow img:nth-child(1) { animation-delay: 0s; }
+        .hero-slideshow img:nth-child(2) { animation-delay: 3s; }
+
+        @keyframes bgFade {
+            0% { opacity: 0; transform: scale(1.02); }
+            12% { opacity: 0.55; }
+            48% { opacity: 0.55; }
+            60% { opacity: 0; transform: scale(1); }
+            100% { opacity: 0; }
+        }
+
+        /* 暗色漸層遮罩 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10, 10, 12, 0.7) 0%, rgba(10, 10, 12, 0.9) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 星光特效 */
+        .sparkle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
             background-image: 
                 radial-gradient(white 1px, transparent 0),
-                radial-gradient(rgba(197, 160, 89, 0.6) 1.5px, transparent 0);
+                radial-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 0);
             background-size: 50px 50px, 80px 80px;
-            background-position: 0 0, 25px 25px;
             opacity: 0.15;
-            z-index: -1;
             animation: twinkle 8s infinite alternate;
         }
 
@@ -49,176 +96,112 @@
             100% { opacity: 0.25; }
         }
 
+        /* 導覽列 */
         header {
-            text-align: center;
-            padding: 4rem 2rem;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(to bottom, #141212, var(--bg-dark));
-        }
-
-        header h1 {
-            color: var(--gold);
-            font-size: 2.8rem;
-            letter-spacing: 0.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            letter-spacing: 0.1rem;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 4rem 1.5rem;
-        }
-
-        .about-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 3.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             position: relative;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 60px;
+            background: transparent;
         }
 
-        .about-card::after {
-            content: "";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 1px solid rgba(197, 160, 89, 0.15);
-            pointer-events: none;
-        }
-
-        h2.story-title {
-            color: var(--gold);
-            font-size: 1.8rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            letter-spacing: 0.15rem;
-        }
-
-        .story-text {
-            color: var(--text-main);
-            font-size: 1.05rem;
-            margin-bottom: 2rem;
-            text-align: justify;
-            text-indent: 2em;
-        }
-
-        .quote-box {
-            border-left: 3px solid var(--gold);
-            padding-left: 1.5rem;
-            margin: 2.5rem 0;
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
             color: var(--gold-light);
-            font-style: italic;
-            font-size: 1.1rem;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            padding-top: 3rem;
-            border-top: 1px dashed var(--border-color);
-        }
-
-        .feature-item h4 {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .feature-item p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        .back-link {
-            text-align: center;
-            margin-top: 3rem;
-        }
-
-        .back-link a {
-            color: var(--gold);
+            letter-spacing: 3px;
             text-decoration: none;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 0.2rem;
-            transition: color 0.3s ease;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
         }
 
-        .back-link a:hover {
-            color: var(--gold-light);
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
 
-        footer {
-            text-align: center;
+        .nav-links li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--gold-primary);
+        }
+
+        /* 內容容器 */
+        .content-container {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            margin: 4rem auto;
             padding: 3rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background-color: #0a0909;
+            background: rgba(15, 14, 14, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-light);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 3rem;
+            font-style: italic;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>月蝕工坊 Eclipse Atelier</h1>
-        <p>關於我們・深夜的避難所與流動的靈魂商隊</p>
-    </header>
-
-    <div class="container">
-        <div class="about-card">
-            <h2 class="story-title">【 隱匿於月影之下的庇護所 】</h2>
-            
-            <p class="story-text">
-                當白晝的喧囂落幕，城市沉入暗夜，時間彷彿在古老的黃銅齒輪與燭光中放慢了腳步。「月蝕工坊（Eclipse Atelier）」便是在這樣的時刻悄然甦醒。我們是一間融合了古典學術氣息與神祕浪漫主義的深夜餐酒館，同時也是一座流動商隊的奇幻選物所。
-            </p>
-
-            <p class="story-text">
-                在這裡，我們致敬 19 世紀的 Dark Academia 美學。厚重的沉香木桌椅、搖曳的古銅燭台、空氣中瀰漫著丁香與微醺的氣息。每一道餐點與特調，都是一場對味覺與靈魂的實驗；每一件選物，都是穿越時光而來的古老紀事。
-            </p>
-
-            <div class="quote-box">
-                「當月影吞噬光芒，真正的對話才正要開始。我們不販售時間，我們收藏深夜的靈魂碎片。」
-            </div>
-
-            <p class="story-text">
-                無論是尋求一處沉澱心靈的避難所，或是渴望在星光與微醺中探索未知的奇幻選物，月蝕工坊都將以最溫潤而神祕的姿態，靜靜等待您的造訪。
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <h4>月蝕饗宴</h4>
-                    <p>嚴選頂級食材與法式工法，融合黑金松露與紅酒慢燉，打造大人系的深夜奢華饗宴。</p>
-                </div>
-                <div class="feature-item">
-                    <h4>深夜迴響</h4>
-                    <p>無添加肉桂的溫潤香料熱紅酒與精緻特調，在復古器皿與乾冰白霧中綻放微醺美學。</p>
-                </div>
-                <div class="feature-item">
-                    <h4>流動商隊</h4>
-                    <p>古法鍛造黃銅風鈴、紫綠螢石與星辰沙漏，收藏所有關於時間與神祕學的奇幻選物。</p>
-                </div>
-            </div>
-
-            <div class="back-link">
-                <a href="index.html">&larr; 返回月蝕工坊主選單</a>
-            </div>
-        </div>
+    <!-- 背景輪轉圖層 -->
+    <div class="hero-slideshow">
+        <img src="bar-interior.jfif" alt="微光吧台區">
+        <img src="lounge-right.jfif" alt="星光祕境沙發區">
     </div>
 
-    <footer>
-        <p>&copy; 2026 月蝕工坊 Eclipse Atelier. All Rights Reserved. Dark Academia Web Design Project.</p>
-    </footer>
+    <div class="overlay"></div>
+    <div class="sparkle-bg"></div>
+
+    <header>
+        <a href="index.html" class="logo">Eclipse Atelier</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="story.html" class="active">關於我們</a></li>
+            <li><a href="bazaar.html">商隊品項</a></li>
+            <li><a href="bazaar.html#cocktail-section">星夜迴響</a></li>
+        </ul>
+    </header>
+
+    <main class="content-container">
+        <h1>關於我們・起源手札</h1>
+        <p>在月色與暗影交織的深夜裡，「月蝕工坊（Eclipse Atelier）」悄然推開大門。這是一個結合 Dark Academia 暗黑美學、古樸神祕與微醺浪漫的避風港。我們遠離塵囂，專注於提供頂級的黑金料理、手工特色調酒，以及流動商隊帶來的奇幻選物。</p>
+        <p>每一盞燭光、每一面古老星象圖、每一件精心挑選的選物，都承載著一段故事。在這裡，時間彷彿慢了下來，邀請您卸下白日的喧囂，一同沉浸在永恆的深夜迴響之中。</p>
+        <div class="signature">— 月蝕工坊主理人 敬上</div>
+    </main>
 
 </body>
 </html>
