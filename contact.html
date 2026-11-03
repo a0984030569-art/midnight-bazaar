@@ -147,7 +147,7 @@
             font-weight: 700;
         }
 
-        /* 聯絡表單主體 (完全對應截圖中的高質感排版與字體) */
+        /* 聯絡表單主體 */
         .contact-container {
             position: relative;
             z-index: 3;
@@ -235,12 +235,77 @@
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
-        #form-status {
+        /* 質感 Dark Academia 風格小彈窗 (Modal) 樣式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 9, 9, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--gold-primary);
+            max-width: 450px;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 6px;
             text-align: center;
-            margin-top: 15px;
-            font-weight: bold;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            animation: scaleUp 0.3s ease;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-box h3 {
+            font-family: 'Cinzel', serif;
             color: var(--gold-light);
-            font-size: 0.95rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .modal-box p {
+            color: var(--text-main);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            font-family: 'Cinzel', 'Noto Serif TC', serif;
+            background-color: var(--gold-primary);
+            color: var(--bg-deep);
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .modal-btn:hover {
+            background-color: var(--gold-light);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
         }
 
         footer {
@@ -278,7 +343,7 @@
         </ul>
     </nav>
 
-    <!-- 聯絡表單主體 (完全對應截圖文字與 FormSubmit 接收機制) -->
+    <!-- 聯絡表單主體 -->
     <div class="contact-container">
         <h1>星夜迴響・聯絡我們</h1>
         <p class="subtitle">若您對深夜饗宴或商隊選物有任何疑問，或欲留下您的迴響，請填寫下方信箋。</p>
@@ -303,25 +368,33 @@
             </div>
 
             <button type="submit" class="submit-btn" id="submit-btn">傳遞深夜迴響</button>
-            <div id="form-status"></div>
         </form>
+    </div>
+
+    <!-- 成功送出後的 Dark Academia 風格小彈窗 (Modal) -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>✦ 傳遞成功 ✦</h3>
+            <p>您的信箋已乘着微光與星空，<br>確實送達月蝕工坊管理員信箱。</p>
+            <button class="modal-btn" onclick="closeModal()">確認</button>
+        </div>
     </div>
 
     <footer>
         &copy; 2026 月蝕工坊 Eclipse Atelier. All Rights Reserved. Dark Academia Web Design Project.
     </footer>
 
-    <!-- FormSubmit AJAX 完整發信邏輯 -->
+    <!-- FormSubmit AJAX 與 Modal 互動邏輯 -->
     <script>
         const form = document.getElementById('ajax-form');
-        const statusDiv = document.getElementById('form-status');
         const submitBtn = document.getElementById('submit-btn');
+        const modal = document.getElementById('successModal');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             submitBtn.disabled = true;
             submitBtn.style.opacity = "0.7";
-            statusDiv.textContent = "正在透過伺服器發送信件...";
+            submitBtn.textContent = "正在傳遞信箋...";
 
             const formData = new FormData(form);
 
@@ -332,20 +405,28 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    statusDiv.textContent = "✨ 發送成功！訊息已確實寄到您的管理員信箱！";
+                    // 顯示精緻質感小彈窗
+                    modal.style.display = 'flex';
                     form.reset();
                 } else {
-                    statusDiv.textContent = "❌ 發送失敗，請稍後再試。";
+                    alert("發送失敗，請稍後再試。");
                 }
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = "1";
+                submitBtn.textContent = "傳遞深夜迴響";
             })
             .catch(error => {
-                statusDiv.textContent = "❌ 發生錯誤，請檢查網路連線。";
+                alert("發生網路錯誤，請稍後再試。");
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = "1";
+                submitBtn.textContent = "傳遞深夜迴響";
             });
         });
+
+        // 關閉彈窗函式
+        function closeModal() {
+            modal.style.display = 'none';
+        }
     </script>
 
 </body>
