@@ -101,6 +101,9 @@
             overflow: hidden;
             transition: transform 0.3s ease, border-color 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
@@ -134,12 +137,104 @@
             margin-bottom: 1.2rem;
         }
 
-        /* 低調優化的價格樣式 */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
         .card-price {
             color: #8c7a5b;
             font-weight: normal;
             font-size: 0.95rem;
-            letter-spacing: 0.05rem;
+        }
+
+        /* 詳情按鈕樣式 */
+        .detail-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .detail-btn:hover {
+            background-color: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        /* 彈跳視窗 Modal 樣式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 9, 9, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--gold);
+            max-width: 600px;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            color: var(--gold);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1rem;
+        }
+
+        .modal-text {
+            color: var(--text-main);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-meta {
+            color: var(--gold-light);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
         }
 
         footer {
@@ -168,56 +263,84 @@
                 <div class="card">
                     <img src="bread-rose.jfif" alt="【黑金松露】西班牙伊比利豬肋眼蓋佐黑蒜泥">
                     <div class="card-content">
-                        <div class="card-title"><span>【黑金松露】伊比利豬肋眼蓋</span><span class="card-price">NT$ 880</span></div>
-                        <div class="card-desc">嚴選頂級西班牙伊比利豬肋眼蓋，肉質細緻甘甜，搭配濃郁黑蒜泥與現刨黑松露，交織出醇厚的大人系風味。</div>
+                        <div class="card-title"><span>【黑金松露】伊比利豬肋眼蓋</span></div>
+                        <div class="card-desc">嚴選頂級西班牙伊比利豬肋眼蓋，肉質細緻甘甜，搭配濃郁黑蒜泥與現刨黑松露...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 880</span>
+                            <button class="detail-btn" onclick="openModal('【黑金松露】西班牙伊比利豬肋眼蓋佐黑蒜泥', '嚴選頂級西班牙伊比利豬肋眼蓋，肉質細緻甘甜，油脂分布均勻如大理石紋。主廚以低溫烹調完美封存肉汁，佐以發酵黑蒜泥的溫潤甜香與現刨黑松露的奢華氣息，交織出層次醇厚的大人系風味。', 'NT$ 880')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="dacquoise-fig.jfif" alt="【緋紅之夜】西班牙紅酒慢燉黑牛頰">
                     <div class="card-content">
-                        <div class="card-title"><span>【緋紅之夜】紅酒慢燉黑牛頰</span><span class="card-price">NT$ 760</span></div>
-                        <div class="card-desc">以厚實紅酒文火慢燉數小時的頂級黑牛頰，入口即化。醬汁如緋紅之夜般深邃，帶有迷人的果香與微酸尾韻。</div>
+                        <div class="card-title"><span>【緋紅之夜】紅酒慢燉黑牛頰</span></div>
+                        <div class="card-desc">以厚實紅酒文火慢燉數小時的頂級黑牛頰，入口即化。醬汁如緋紅之夜般深邃...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 760</span>
+                            <button class="detail-btn" onclick="openModal('【緋紅之夜】西班牙紅酒慢燉黑牛頰', '精選頂級黑牛頰肉，浸入西班牙濃郁紅酒與多款香料中，文火慢燉長達八小時。肉質軟嫩、入口即化，醬汁吸收了紅酒的果香與微酸尾韻，在深夜裡帶來無與倫比的溫暖撫慰。', 'NT$ 760')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="brownie-choco.jfif" alt="【煙燻玫瑰】油封鴨腿佐波特酒蔓越莓醬">
                     <div class="card-content">
-                        <div class="card-title"><span>【煙燻玫瑰】油封鴨腿</span><span class="card-price">NT$ 680</span></div>
-                        <div class="card-desc">法式傳統油封工法製作的酥脆鴨腿，佐以波特酒與蔓越莓熬煮的酸甜莓果醬，滋味層次分明，宛如暗夜中的玫瑰。</div>
+                        <div class="card-title"><span>【煙燻玫瑰】油封鴨腿</span></div>
+                        <div class="card-desc">法式傳統油封工法製作的酥脆鴨腿，佐以波特酒與蔓越莓熬煮的酸甜莓果醬...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 680</span>
+                            <button class="detail-btn" onclick="openModal('【煙燻玫瑰】油封鴨腿佐波特酒蔓越莓醬', '遵循法式傳統油封工法，將鴨腿以自身油脂慢火浸潤至外皮酥脆、內裡肉質絲絲分明。搭配以波特酒與新鮮蔓越莓熬煮的酸甜醬汁，滋味層次分明，宛如暗夜中綻放的玫瑰般迷人。', 'NT$ 680')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="arancini-truffle.jfif" alt="【黃金誘惑】義大利松露帕瑪森炸飯球">
                     <div class="card-content">
-                        <div class="card-title"><span>【黃金誘惑】松露帕瑪森炸飯球</span><span class="card-price">NT$ 420</span></div>
-                        <div class="card-desc">金黃酥脆的外皮包裹著吸滿松露香氣的義大利燉飯與帕瑪森起司，一口咬下濃郁牽絲，是深夜裡難以抗拒的誘惑。</div>
+                        <div class="card-title"><span>【黃金誘惑】松露帕瑪森炸飯球</span></div>
+                        <div class="card-desc">金黃酥脆的外皮包裹著吸滿松露香氣的義大利燉飯與帕瑪森起司...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 420</span>
+                            <button class="detail-btn" onclick="openModal('【黃金誘惑】義大利松露帕瑪森炸飯球', '外皮炸至金黃酥脆，一口咬下是吸滿黑松露香氣的義大利米與濃郁的帕瑪森起司。內餡濃郁牽絲，伴隨著松露的獨特蕈香，是深夜微醺時刻最難以抗拒的邪惡誘惑。', 'NT$ 420')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="croissant-gilded.jfif" alt="【黑夜之王】美國頂級菲力牛排佐黑松露紅酒醬">
                     <div class="card-content">
-                        <div class="card-title"><span>【黑夜之王】頂級菲力牛排</span><span class="card-price">NT$ 980</span></div>
-                        <div class="card-desc">厚切美國頂級菲力牛排，完美封存肉汁。淋上奢華的黑松露紅酒醬，盡顯黑夜之王的霸氣與高貴。</div>
+                        <div class="card-title"><span>【黑夜之王】頂級菲力牛排</span></div>
+                        <div class="card-desc">厚切美國頂級菲力牛排，完美封存肉汁。淋上奢華的黑松露紅酒醬...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 980</span>
+                            <button class="detail-btn" onclick="openModal('【黑夜之王】美國頂級菲力牛排佐黑松露紅酒醬', '嚴選厚切美國頂級菲力牛排，油花纖細、肉質軟嫩。經大火炙燒完美封存肉汁，佐以主廚特製的黑松露紅酒醬汁，氣勢磅礡、盡顯黑夜之王的霸氣與高貴。', 'NT$ 980')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="roll-cinnamon.jfif" alt="【暮光之城】無花果紅酒蜜漬達克瓦茲">
                     <div class="card-content">
-                        <div class="card-title"><span>【暮光之城】無花果達克瓦茲</span><span class="card-price">NT$ 320</span></div>
-                        <div class="card-desc">外酥內軟的經典達克瓦茲，夾入以紅酒蜜漬的無花果乾與濃郁乳酪，散發出神祕而優雅的暮光氣息。</div>
+                        <div class="card-title"><span>【暮光之城】無花果達克瓦茲</span></div>
+                        <div class="card-desc">外酥內軟的經典達克瓦茲，夾入以紅酒蜜漬的無花果乾與濃郁乳酪...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 320</span>
+                            <button class="detail-btn" onclick="openModal('【暮光之城】無花果紅酒蜜漬達克瓦茲', '外層酥脆、內裡輕盈柔軟的法式達克瓦茲。內餡夾入浸泡在紅酒中緩慢蜜漬的無花果乾與絲滑乳酪，散發出神祕而優雅的暮光氣息，甜而不膩。', 'NT$ 320')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="tart-gem.jfif" alt="【黑森林寶石】桑葚藍莓玫瑰塔">
                     <div class="card-content">
-                        <div class="card-title"><span>【黑森林寶石】桑葚藍莓玫瑰塔</span><span class="card-price">NT$ 360</span></div>
-                        <div class="card-desc">酥脆塔皮填入絲滑絲絨奶霜，鋪滿宛如寶石般閃耀的野生桑葚與藍莓，點綴有機玫瑰花瓣，酸甜且迷人。</div>
+                        <div class="card-title"><span>【黑森林寶石】桑葚藍莓玫瑰塔</span></div>
+                        <div class="card-desc">酥脆塔皮填入絲滑絲絨奶霜，鋪滿宛如寶石般閃耀的野生桑葚與藍莓...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 360</span>
+                            <button class="detail-btn" onclick="openModal('【黑森林寶石】桑葚藍莓玫瑰塔', '手作酥脆黑可可塔皮，填入絲滑細緻的絲絨香草奶霜，鋪滿宛如深邃寶石般閃耀的野生桑葚與飽滿藍莓。頂端點綴有機食用玫瑰花瓣，酸甜交織，視覺與味覺的雙重饗宴。', 'NT$ 360')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,48 +353,72 @@
                 <div class="card">
                     <img src="tea-cinnamon.jfif" alt="【月暈琥珀】紅銅壺慢煮丁香豆蔻熱紅酒">
                     <div class="card-content">
-                        <div class="card-title"><span>【月暈琥珀】丁香豆蔻熱紅酒</span><span class="card-price">NT$ 450</span></div>
-                        <div class="card-desc">以紅銅壺慢火熬煮的溫熱紅酒，融入丁香、豆蔻與新鮮柑橘皮（全程無添加肉桂），在寒夜中散發溫潤的月暈光輝。</div>
+                        <div class="card-title"><span>【月暈琥珀】丁香豆蔻熱紅酒</span></div>
+                        <div class="card-desc">以紅銅壺慢火熬煮的溫熱紅酒，融入丁香、豆蔻與新鮮柑橘皮（全程無添加肉桂）...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 450</span>
+                            <button class="detail-btn" onclick="openModal('【月暈琥珀】紅銅壺慢煮丁香豆蔻熱紅酒', '使用復古紅銅壺慢火熬煮的溫潤熱紅酒。嚴選多款香料如丁香、豆蔻與新鮮柑橘皮一同釋放風味（全程嚴格排除您不喜歡的肉桂），在寒夜中散發溫潤柔和的月暈光輝。', 'NT$ 450')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="tea-mint.jfif" alt="【綠洲薄荷】極光莫希托特調">
                     <div class="card-content">
-                        <div class="card-title"><span>【綠洲薄荷】極光莫希托</span><span class="card-price">NT$ 420</span></div>
-                        <div class="card-desc">厚底手工玻璃杯裝載的寶石綠 Mojito，新鮮薄荷葉與萊姆撞擊出清涼口感，杯口環繞著神祕的乾冰白霧。</div>
+                        <div class="card-title"><span>【綠洲薄荷】極光莫希托</span></div>
+                        <div class="card-desc">厚底手工玻璃杯裝載的寶石綠 Mojito，新鮮薄荷葉與萊姆撞擊出清涼口感...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 420</span>
+                            <button class="detail-btn" onclick="openModal('【綠洲薄荷】極光莫希托特調', '採用厚實沉穩的手工玻璃杯盛裝，翠綠的寶石色調來自新鮮搗碎的薄荷葉與萊姆。入口清涼爽口，杯口自然環繞著神祕的乾冰白霧，彷彿沙漠中的一抹極光綠洲。', 'NT$ 420')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="tea-rose.jfif" alt="【波斯玫瑰】晨曦玫瑰琴酒特調">
                     <div class="card-content">
-                        <div class="card-title"><span>【波斯玫瑰】晨曦玫瑰琴酒</span><span class="card-price">NT$ 460</span></div>
-                        <div class="card-desc">手工水晶鬱金香杯中綻放的粉金漸層特調，融入波斯玫瑰花瓣與食用金箔，口感清新且帶有迷人的花香尾韻。</div>
+                        <div class="card-title"><span>【波斯玫瑰】晨曦玫瑰琴酒</span></div>
+                        <div class="card-desc">手工水晶鬱金香杯中綻放的粉金漸層特調，融入波斯玫瑰花瓣與食用金箔...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 460</span>
+                            <button class="detail-btn" onclick="openModal('【波斯玫瑰】晨曦玫瑰琴酒特調', '選用水晶鬱金香杯，透出如清晨曙光般的夢幻粉金漸層。基底融入波斯玫瑰純露與頂級琴酒，點綴可食用金箔與乾燥花瓣，口感清新高雅，帶有迷人的花香尾韻。', 'NT$ 460')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="champagne-gilded.jfif" alt="【月蝕之戀】百香果金箔氣泡酒">
                     <div class="card-content">
-                        <div class="card-title"><span>【月蝕之戀】百香果金箔氣泡酒</span><span class="card-price">NT$ 480</span></div>
-                        <div class="card-desc">細緻氣泡在香檳笛杯中如金黃月蝕般閃耀，結合新鮮百香果酸甜滋味與大量食用金箔，奢華而浪漫。</div>
+                        <div class="card-title"><span>【月蝕之戀】百香果金箔氣泡酒</span></div>
+                        <div class="card-desc">細緻氣泡在香檳笛杯中如金黃月蝕般閃耀，結合新鮮百香果酸甜滋味與大量食用金箔...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 480</span>
+                            <button class="detail-btn" onclick="openModal('【月蝕之戀】百香果金箔氣泡酒', '細緻綿密的氣泡在香檳笛杯中上升，如金黃色的月蝕般神祕閃耀。結合新鮮百香果的熱帶酸甜與大量片狀食用金箔，奢華浪漫，是慶祝深夜相聚的完美之選。', 'NT$ 480')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="tea-berry.jfif" alt="【暮光莓果】黑醋栗蔓越莓琴酒特調">
                     <div class="card-content">
-                        <div class="card-title"><span>【暮光莓果】黑醋栗蔓越莓特調</span><span class="card-price">NT$ 440</span></div>
-                        <div class="card-desc">復古淺碟香檳杯盛裝的深紅寶石色調酒，結合黑醋栗與蔓越莓的酸甜果香，氣息浪漫神祕。</div>
+                        <div class="card-title"><span>【暮光莓果】黑醋栗蔓越莓特調</span></div>
+                        <div class="card-desc">復古淺碟香檳杯盛裝的深紅寶石色調酒，結合黑醋栗與蔓越莓的酸甜果香...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 440</span>
+                            <button class="detail-btn" onclick="openModal('【暮光莓果】黑醋栗蔓越莓琴酒特調', '以復古淺碟香檳杯盛裝，酒液呈現深邃迷人的紅寶石色澤。結合黑醋栗的濃郁果香與蔓越莓的清爽酸甜，氣息浪漫而神祕，宛如黃昏沒入黑夜前的最後一抹暮光。', 'NT$ 440')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="tea-charcoal.jfif" alt="【夜魅咖啡】貝禮詩奶酒濃縮黑可可特調">
                     <div class="card-content">
-                        <div class="card-title"><span>【夜魅咖啡】奶酒濃縮黑可可</span><span class="card-price">NT$ 450</span></div>
-                        <div class="card-desc">岩石杯中交織出迷人的大理石漸層，底層為義式濃縮咖啡與貝禮詩奶酒，頂層覆蓋黑可可粉，大人系的微醺滋味。</div>
+                        <div class="card-title"><span>【夜魅咖啡】奶酒濃縮黑可可</span></div>
+                        <div class="card-desc">岩石杯中交織出迷人的大理石漸層，底層為義式濃縮咖啡與貝禮詩奶酒...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 450</span>
+                            <button class="detail-btn" onclick="openModal('【夜魅咖啡】貝禮詩奶酒濃縮黑可可特調', '厚實岩石杯中交織出迷人的大理石紋漸層。底層為濃醇的義式濃縮咖啡與香甜貝禮詩奶酒，頂層輕灑黑可可粉。口感滑順香濃，是大人系專屬的微醺咖啡時光。', 'NT$ 450')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -284,40 +431,60 @@
                 <div class="card">
                     <img src="wind-chime.jfif" alt="【風之語】古法鍛造黃銅風鈴">
                     <div class="card-content">
-                        <div class="card-title"><span>【風之語】古法鍛造黃銅風鈴</span><span class="card-price">NT$ 1,280</span></div>
-                        <div class="card-desc">掛在餐酒館角落的手工鍛造黃銅風鈴，散發沉穩的古銅金光澤，隨風敲擊出空靈低沉的共鳴。</div>
+                        <div class="card-title"><span>【風之語】古法鍛造黃銅風鈴</span></div>
+                        <div class="card-desc">掛在餐酒館角落的手工鍛造黃銅風鈴，散發沉穩的古銅金光澤，隨風敲擊出空靈低沉的共鳴...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 1,280</span>
+                            <button class="detail-btn" onclick="openModal('【風之語】古法鍛造黃銅風鈴', '由工匠以古法手工鍛造的黃銅風鈴，表面帶有歲月痕跡的沉穩古銅金光澤。微風拂過時，敲擊出的不是清脆高亢的聲音，而是低沉、空靈且悠遠的共鳴，彷彿能喚醒遠方的記憶。', 'NT$ 1,280')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="fluorite-gem.jfif" alt="【星辰之淚】紫綠漸層螢石原礦">
                     <div class="card-content">
-                        <div class="card-title"><span>【星辰之淚】紫綠漸層螢石原礦</span><span class="card-price">NT$ 1,650</span></div>
-                        <div class="card-desc">擺放在桌面或櫃台的天然螢石原礦，透出從深紫到幽綠的夢幻漸層，在暗夜中散發神祕微光。</div>
+                        <div class="card-title"><span>【星辰之淚】紫綠漸層螢石原礦</span></div>
+                        <div class="card-desc">擺放在桌面或櫃台的天然螢石原礦，透出從深紫到幽綠的夢幻漸層...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 1,650</span>
+                            <button class="detail-btn" onclick="openModal('【星辰之淚】紫綠漸層螢石原礦', '大自然孕育的天然螢石原礦，透出從神祕深紫到幽微翠綠的夢幻漸層。在昏暗的燭光下，它彷彿會自行呼吸般透出微光，傳說中是夜空殞落的星辰之淚。', 'NT$ 1,650')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="hourglass-gilded.jfif" alt="【流光砂漏】古銅星辰魔法沙漏">
                     <div class="card-content">
-                        <div class="card-title"><span>【流光砂漏】古銅星辰魔法沙漏</span><span class="card-price">NT$ 1,420</span></div>
-                        <div class="card-desc">精緻的古銅星軌雕花框架，內部流動著如銀河般閃爍的深紫色星沙，是兼具時間感與魔法氣息的掌心藝術品。</div>
+                        <div class="card-title"><span>【流光砂漏】古銅星辰魔法沙漏</span></div>
+                        <div class="card-desc">精緻的古銅星軌雕花框架，內部流動著如銀河般閃爍的深紫色星沙...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 1,420</span>
+                            <button class="detail-btn" onclick="openModal('【流光砂漏】古銅星辰魔法沙漏', '精雕細琢的古銅星軌與月相雕花框架，內部流動著如璀璨銀河般閃爍的深紫色星沙。每一次翻轉，都像是在掌控時間的流動，是兼具古典工藝與魔法氣息的掌心藝術品。', 'NT$ 1,420')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="lantern-moroccan.jfif" alt="【熾焰之心】摩洛哥手工鏤空琉璃燭台">
                     <div class="card-content">
-                        <div class="card-title"><span>【熾焰之心】摩洛哥鏤空琉璃燭台</span><span class="card-price">NT$ 1,880</span></div>
-                        <div class="card-desc">透出紅藍寶石光影的異國風情燭台，為深夜的餐酒館空間點亮溫暖而神祕的微光。</div>
+                        <div class="card-title"><span>【熾焰之心】摩洛哥鏤空琉璃燭台</span></div>
+                        <div class="card-desc">透出紅藍寶石光影的異國風情燭台，為深夜的餐酒館空間點亮溫暖而神祕的微光...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 1,880</span>
+                            <button class="detail-btn" onclick="openModal('【熾焰之心】摩洛哥手工鏤空琉璃燭台', '充滿異國情調的摩洛哥手工金屬鏤空工藝，嵌入手工彩繪琉璃。當內部燭光亮起時，會向四周灑落如紅藍寶石般璀璨迷人的光影，為深夜空間注入溫暖而神祕的靈魂。', 'NT$ 1,880')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card">
                     <img src="perfume-bottle.jfif" alt="【綠洲之泉】土耳其藍琉璃香氛瓶">
                     <div class="card-content">
-                        <div class="card-title"><span>【綠洲之泉】土耳其藍琉璃香氛瓶</span><span class="card-price">NT$ 980</span></div>
-                        <div class="card-desc">手工吹製的海水藍琉璃，外層包覆精緻銀質藤蔓雕花，瓶內凝鍊著神祕清涼的沙漠綠洲香氣。</div>
+                        <div class="card-title"><span>【綠洲之泉】土耳其藍琉璃香氛瓶</span></div>
+                        <div class="card-desc">手工吹製的海水藍琉璃，外層包覆精緻銀質藤蔓雕花，瓶內凝鍊著神祕清涼的香氣...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 980</span>
+                            <button class="detail-btn" onclick="openModal('【綠洲之泉】土耳其藍琉璃香氛瓶', '以手工吹製的海水藍琉璃打造，外層精緻包覆著銀質藤蔓與綠松石雕花鑲嵌。瓶身內凝鍊著融合了薄荷與珍稀香料、神祕而清涼的沙漠綠洲香氣，宛如古老東方的秘寶。', 'NT$ 980')">點擊觀看詳細紀事</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -325,9 +492,42 @@
 
     </div>
 
+    <!-- 詳細紀事彈跳視窗 Modal -->
+    <div id="detailModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModalDirect()">&times;</button>
+            <h3 id="modalTitle" class="modal-title">標題</h3>
+            <p id="modalDesc" class="modal-text">詳細內容說明...</p>
+            <div class="modal-meta">
+                <span>月蝕工坊・典藏紀事</span>
+                <span id="modalPrice" style="color: var(--gold);">價格</span>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 月蝕工坊 Eclipse Atelier. All Rights Reserved. Dark Academia Web Design Project.</p>
     </footer>
+
+    <script>
+        // 開啟彈跳視窗
+        function openModal(title, desc, price) {
+            document.getElementById('modalTitleinnerText').innerText = title;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('detailModal').style.display = 'flex';
+        }
+
+        // 關閉彈跳視窗
+        function closeModalDirect() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        function closeModal(event) {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
