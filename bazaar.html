@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclipse Atelier — 月蝕工坊</title>
+    <title>商隊品項 — Eclipse Atelier 月蝕工坊</title>
     <!-- 引入古典襯線字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -100,43 +100,17 @@
             color: var(--gold-primary);
         }
 
-        /* 「關於我們」商隊起源故事專區 */
-        .lore-section {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            margin: 140px auto 40px auto;
-            padding: 50px 40px;
-            background: rgba(18, 22, 32, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 6px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .lore-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: var(--gold-light);
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-        }
-
-        .lore-text {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 2;
-            letter-spacing: 1px;
-            font-style: italic;
-        }
-
         /* 內容區塊通用樣式 */
         .section {
             position: relative;
             z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 100px 20px 60px 20px;
+        }
+
+        .section:first-of-type {
+            padding-top: 130px; /* 讓第一個區塊不會被固定導覽列擋住 */
         }
 
         .section-title {
@@ -172,7 +146,6 @@
             border-radius: 4px;
             overflow: hidden;
             cursor: pointer;
-            /* 淡入動畫設定 */
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease, border-color 0.4s, box-shadow 0.4s;
@@ -378,10 +351,8 @@
             header { padding: 15px 20px; }
             nav ul { gap: 15px; }
             nav ul li a { font-size: 0.8rem; }
-            .lore-section { margin: 100px 15px 20px 15px; padding: 30px 20px; }
-            .lore-title { font-size: 1.4rem; }
-            .lore-text { font-size: 0.9rem; }
-            .section { padding: 50px 15px; }
+            .section { padding: 40px 15px; }
+            .section:first-of-type { padding-top: 110px; }
             .section-title h2 { font-size: 1.6rem; }
             .grid-container { grid-template-columns: 1fr; }
             .modal-img { height: 220px; }
@@ -400,21 +371,14 @@
         <a href="index.html" class="logo">Eclipse Atelier</a>
         <nav>
             <ul>
-                <li><a href="#lore">關於我們</a></li>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="story.html">關於我們</a></li>
                 <li><a href="#bakery">月蝕烘焙</a></li>
                 <li><a href="#curiosities">流動商隊</a></li>
                 <li><a href="#elixirs">深夜特調</a></li>
             </ul>
         </nav>
     </header>
-
-    <!-- 關於我們・商隊起源故事專區 -->
-    <section id="lore" class="lore-section">
-        <h2 class="lore-title">【 月蝕工坊・關於我們 】</h2>
-        <p class="lore-text">
-            「在無光之夜與星塵交替的邊界，月蝕商隊緩緩駐足。我們不為喧囂停留，只為每一位在深夜中尋找歸宿的靈魂，熬煮一盞溫熱的香料記憶，雕琢一件帶走遠方祝福的器物。願這抹微光，照亮你心中最柔軟的角落。」
-        </p>
-    </section>
 
     <!-- 1. 月蝕烘焙區 -->
     <section id="bakery" class="section">
