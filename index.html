@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>月蝕工坊 | 奇幻選物與深夜手作所</title>
-    <!-- 引入古典襯線字體 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>微光巴札 | 幾近深夜的異國香料烘焙所</title>
+    <!-- Google Fonts 溫潤圓體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #14100E;         /* 深邃暗夜黑棕 */
-            --bg-card: #1C1613;         /* 卡片暗皮革色 */
-            --text-main: #EFE7DE;       /* 溫潤月光白 */
-            --text-muted: #A39387;      /* 灰褐神祕次要字 */
-            --accent-gold: #C5A059;     /* 復古古銅金 */
-            --accent-glow: rgba(197, 160, 89, 0.15);
-            --border-line: #3D3028;     /* 沉穩邊框線條 */
+            --bg-color: #FDFBF7;          /* 極淺燕麥白底 */
+            --text-main: #423531;         /* 深可可棕文字 */
+            --text-muted: #6B5B54;        /* 次要文字色 */
+            --primary-warm: #9E6B47;      /* 烤焙焦糖色 */
+            --luxury-gold: #C59B27;       /* 古銅金 */
+            --border-color: #EFE3D5;      /* 溫潤邊框色 */
+            --card-bg: #FFFFFF;           /* 卡片背景白 */
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Noto Serif TC', 'Georgia', serif;
+            font-family: 'Zen Maru Gothic', 'PingFang TC', sans-serif;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.9;
-            letter-spacing: 0.8px;
-            position: relative;
+            line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* ================= 魔法星光背景 (一閃一閃特效) ================= */
@@ -41,172 +40,161 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1; /* 位於最底層上方、內容下方 */
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, #C5A059, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #C5A059, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 230px 200px, #C5A059, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 300px 80px, #ffffff, rgba(0,0,0,0));
+                radial-gradient(2px 2px at 20px 30px, #C59B27, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #9E6B47, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, #C59B27, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #423531, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 230px 200px, #C59B27, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 80px, #9E6B47, rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 350px 350px;
-            opacity: 0.35;
+            opacity: 0.45;
             animation: starTwinkle 6s ease-in-out infinite alternate;
         }
 
         @keyframes starTwinkle {
-            0% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.02); }
-            100% { opacity: 0.2; transform: scale(1); }
+            0% { opacity: 0.25; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+            100% { opacity: 0.25; transform: scale(1); }
         }
 
-        /* ================= Header: 沉浸式暗夜神祕主視覺 ================= -->
+        /* ================= Header: 雜誌風首頁大圖視覺 ================= */
         header {
             position: relative;
-            min-height: 90vh;
+            width: 100%;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
-            background: radial-gradient(circle at center, #261D18 0%, #14100E 70%);
-            border-bottom: 2px solid var(--border-line);
-            z-index: 1;
+            padding: 0 20px;
+            color: #FDFBF7;
+            background: linear-gradient(135deg, #241E1C 0%, #362C28 50%, var(--text-main) 100%);
+            z-index: 2;
         }
 
-        /* 雙層古典裝飾框線 */
         header::before {
             content: '';
             position: absolute;
-            top: 20px; bottom: 20px; left: 20px; right: 20px;
-            border: 1px solid rgba(197, 160, 89, 0.25);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border: 2px solid rgba(197, 155, 39, 0.3);
+            border-radius: 50%;
             pointer-events: none;
-        }
-        header::after {
-            content: '';
-            position: absolute;
-            top: 26px; bottom: 26px; left: 26px; right: 26px;
-            border: 1px solid rgba(197, 160, 89, 0.1);
-            pointer-events: none;
-        }
-
-        .moon-symbol {
-            font-size: 2.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
-            animation: moonGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes moonGlow {
-            from { text-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
-            to { text-shadow: 0 0 25px rgba(197, 160, 89, 0.6); }
         }
 
         header h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            letter-spacing: 4px;
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            color: #F8F4EC;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
         }
 
         header p {
-            font-size: 1.15rem;
-            max-width: 650px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-weight: 300;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            position: relative;
         }
 
-        .header-badge {
-            display: inline-block;
-            padding: 8px 25px;
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
+        .scroll-down-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--luxury-gold);
             font-size: 0.9rem;
+            text-transform: uppercase;
             letter-spacing: 2px;
-            background: rgba(197, 160, 89, 0.05);
-            box-shadow: inset 0 0 10px var(--accent-glow);
+            animation: bounce 2s infinite;
         }
 
-        /* ================= 導航選單：古籍卷軸風 ================= -->
-        .nav-container {
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
+
+        /* ================= Section: 神祕入口導航 ================= */
+        .home-nav {
             max-width: 1100px;
-            margin: -50px auto 80px auto;
+            margin: -80px auto 60px auto;
             position: relative;
             z-index: 10;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             padding: 0 20px;
         }
 
-        .mystic-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-line);
-            padding: 45px 35px;
+        .nav-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
             text-align: center;
-            position: relative;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(166, 123, 91, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .mystic-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 15px 40px rgba(197, 160, 89, 0.15);
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(166, 123, 91, 0.15);
         }
 
-        .mystic-card::before {
-            content: '✦';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            color: var(--accent-gold);
-            font-size: 0.8rem;
-            opacity: 0.5;
-        }
-
-        .card-icon {
-            font-size: 2.2rem;
-            color: var(--accent-gold);
+        .nav-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
+            color: var(--primary-warm);
+            background-color: #F6F2EC;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--border-color);
         }
 
-        .mystic-card h3 {
-            font-size: 1.4rem;
-            color: #F8F4EC;
+        .nav-card h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
             margin-bottom: 15px;
+        }
+
+        .nav-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .nav-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-warm);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: background-color 0.3s;
             letter-spacing: 1px;
         }
 
-        .mystic-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-            line-height: 1.7;
-        }
-
-        .mystic-btn {
-            display: inline-block;
-            padding: 12px 32px;
-            background: transparent;
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .mystic-btn:hover {
-            background-color: var(--accent-gold);
-            color: var(--bg-deep);
-            box-shadow: 0 0 15px var(--accent-glow);
+        .nav-btn:hover {
+            background-color: var(--text-main);
         }
     </style>
 </head>
@@ -215,36 +203,38 @@
     <!-- 背景一閃一閃的星光特效層 -->
     <div class="stars-background"></div>
 
-    <!-- ================= 沉浸式主視覺 ================= -->
+    <!-- ================= Header 視覺區 ================= -->
     <header>
-        <div class="moon-symbol">☽ ── ☾</div>
-        <h1>月蝕工坊</h1>
-        <p>Eclipse Atelier — 當月影被陰影吞噬，古老的工藝與香氣便在暗夜中甦醒。這是一座專屬於深夜未歸靈魂的魔幻避難所。</p>
-        <div class="header-badge">✦ 奇幻選物 ✕ 深夜手作 ✕ 異國香料 ✦</div>
+        <h1>🌙 微光巴札</h1>
+        <p>幾近深夜的異國香料烘焙所 — 當月影西移，流動商隊的爐火已悄悄點亮。</p>
+        <p style="font-size: 1rem; font-style: italic; border: 1px solid var(--luxury-gold); padding: 10px 20px; border-radius: 30px; position: relative; z-index: 2;">
+            一場關於時間、香氣與夢境的深夜奇幻漂流
+        </p>
+        <div class="scroll-down-hint">Explore ▼</div>
     </header>
 
-    <!-- ================= 神祕卷軸導航卡片 ================= -->
-    <div class="nav-container">
-        <!-- 區塊一 -->
-        <div class="mystic-card">
-            <div class="card-icon">🍞</div>
-            <h3>深夜手作烘焙</h3>
-            <p>遵循古法、低糖無負擔的歐式麵包與司康，揉入波斯玫瑰與錫蘭肉桂，在寂靜時刻溫暖心靈。</p>
-            <a href="#bakery" class="mystic-btn">探索烘焙櫥窗</a>
+    <!-- ================= 首頁導航卡片區 ================= -->
+    <div class="home-nav">
+        <!-- 入口一：烘焙 -->
+        <div class="nav-card">
+            <div class="nav-icon">🍞</div>
+            <h3>月影下的香料烘焙</h3>
+            <p>遵循古法、低糖無負擔的歐式麵包與司康，揉入波斯玫瑰、錫蘭肉桂，溫暖深夜未歸的靈魂。</p>
+            <a href="#bakery" class="nav-btn">探索烘焙櫥窗</a>
         </div>
-        <!-- 區塊二 -->
-        <div class="mystic-card">
-            <div class="card-icon">🏺</div>
-            <h3>奇幻選物典藏</h3>
-            <p>來自沙漠深處與神話傳說的器物——黃銅風鈴、捕夢網香氛、流光砂漏，收藏時間碎片。</p>
-            <a href="#curios" class="mystic-btn">瀏覽奇幻選物</a>
+        <!-- 入口二：選物 -->
+        <div class="nav-card">
+            <div class="nav-icon">🏺</div>
+            <h3>流動商隊的奇幻選物</h3>
+            <p>來自沙漠深處與古老傳說的神祕小玩意兒——黃銅風鈴、捕夢網香氛、流光砂漏，收藏時光碎片。</p>
+            <a href="#curios" class="nav-btn">瀏覽奇幻選物</a>
         </div>
-        <!-- 區塊三 -->
-        <div class="mystic-card">
-            <div class="card-icon">🍵</div>
-            <h3>深夜香料特調</h3>
-            <p>土耳其慢煮肉桂紅、摩洛哥薄荷綠茶、晨曦玫瑰露拿鐵，撫平一整天的喧囂與疲憊。</p>
-            <a href="#drinks" class="mystic-btn">品嚐深夜暖意</a>
+        <!-- 入口三：飲品 -->
+        <div class="nav-card">
+            <div class="nav-icon">🍵</div>
+            <h3>深夜商隊的特調飲品</h3>
+            <p>土耳其慢煮肉桂紅、摩洛哥薄荷綠茶、晨曦玫瑰露拿鐵，撫平一整天的疲憊與喧囂。</p>
+            <a href="#drinks" class="nav-btn">品嚐深夜暖意</a>
         </div>
     </div>
 
