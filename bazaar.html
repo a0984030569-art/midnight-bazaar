@@ -24,6 +24,7 @@
             line-height: 1.8;
             position: relative;
             overflow-x: hidden;
+            scroll-behavior: smooth; /* 點擊錨點或Top按鈕時平滑滾動 */
         }
 
         /* 閃亮亮星光背景特效 */
@@ -47,6 +48,40 @@
         @keyframes twinkle {
             0% { opacity: 0.1; }
             100% { opacity: 0.25; }
+        }
+
+        /* 頂端導覽列 Navbar (對應您截圖中的選單項目) */
+        nav {
+            background-color: rgba(15, 14, 14, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-brand {
+            color: var(--gold);
+            font-size: 1.2rem;
+            letter-spacing: 0.1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
         }
 
         header {
@@ -77,6 +112,7 @@
 
         section {
             margin-bottom: 5rem;
+            scroll-margin-top: 5rem; /* 確保點擊錨點時不會被固定導覽列遮擋 */
         }
 
         h2.section-title {
@@ -237,6 +273,34 @@
             justify-content: space-between;
         }
 
+        /* 底部與 Top 按鈕區塊 */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .top-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .top-btn:hover {
+            background-color: var(--gold);
+            color: var(--bg-dark);
+        }
+
         footer {
             text-align: center;
             padding: 3rem;
@@ -247,7 +311,18 @@
         }
     </style>
 </head>
-<body>
+<body id="top-page">
+
+    <!-- 頂端導覽列 (對應您的選單：首頁、關於我們、商隊品項、星夜迴響) -->
+    <nav>
+        <a href="bazaar.html" class="nav-brand">Eclipse Atelier 月蝕工坊</a>
+        <div class="nav-links">
+            <a href="bazaar.html" class="active">首頁</a>
+            <a href="about.html">關於我們</a>
+            <a href="#caravan-section">商隊品項</a>
+            <a href="#cocktail-section">星夜迴響</a>
+        </div>
+    </nav>
 
     <header>
         <h1>月蝕工坊 Eclipse Atelier</h1>
@@ -307,6 +382,19 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <img src="croissant-gilded.jfif" alt="【黑夜之王】美國頂級菲力牛排佐黑松露紅酒醬">
+                    <div class="card-content">
+                        <div class="card-title"><span>【黑夜之王】頂級菲力牛排</span></div>
+                        <div class="card-desc">厚切美國頂級菲力牛排，完美封存肉汁。淋上奢華的黑松露紅酒醬...</div>
+                        <div class="card-footer">
+                            <span class="card-price">NT$ 980</span>
+                            <button class="detail-btn" onclick="openModal('【黑夜之王】美國頂級菲力牛排佐黑松露紅酒醬', '嚴選厚切美國頂級菲力牛排，油花纖細、肉質軟嫩。經大火炙燒完美封存肉汁，佐以主廚特製的黑松露紅酒醬汁，氣勢磅礡、盡顯黑夜之王的霸氣與高貴。', 'NT$ 980')">點擊觀看詳細紀事</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <img src="roll-cinnamon.jfif" alt="【暮光之城】無花果紅酒蜜漬達克瓦茲">
                     <div class="card-content">
@@ -333,8 +421,8 @@
             </div>
         </section>
 
-        <!-- 二、深夜迴響 -->
-        <section>
+        <!-- 二、深夜迴響 (加上 id 供導覽列錨點跳轉) -->
+        <section id="cocktail-section">
             <h2 class="section-title">二、深夜迴響・特色調酒</h2>
             <div class="grid">
                 <div class="card">
@@ -411,8 +499,8 @@
             </div>
         </section>
 
-        <!-- 三、流動商隊 -->
-        <section>
+        <!-- 三、流動商隊 (加上 id 供導覽列錨點跳轉) -->
+        <section id="caravan-section">
             <h2 class="section-title">三、流動商隊・神祕奇幻選物</h2>
             <div class="grid">
                 <div class="card">
@@ -488,6 +576,12 @@
                 </div>
             </div>
         </section>
+
+        <!-- 底部返回頂端按鈕 -->
+        <div class="bottom-nav">
+            <span style="color: var(--text-muted); font-size: 0.9rem;">月蝕工坊・探索深夜的靈魂碎片</span>
+            <a href="#top-page" class="top-btn">&uarr; 返回頂端 (Top)</a>
+        </div>
 
     </div>
 
