@@ -3,247 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聯絡我們與訂位 | 星夜迴響 Midnight Bazaar</title>
-    <!-- Google Fonts 溫潤圓體 -->
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>星夜迴響・聯絡我們 | 月蝕工坊 Eclipse Atelier</title>
+    <!-- 引入古典襯線字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19;          /* 星夜迴響專屬深邃夜空黑 */
-            --card-bg: #141b2d;          /* 質感深藍灰卡片底 */
-            --accent-gold: #dfb15b;       /* 高級金黃色調 */
-            --accent-hover: #f0c56e;
-            --text-main: #f3f4f6;        /* 主要明亮文字 */
-            --text-muted: #9ca3af;       /* 次要提示文字 */
-            --border-color: #273046;     /* 精緻邊框色 */
+            --bg-deep: #0a0a0c;
+            --bg-card: #171515;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #e2ded0;
+            --text-muted: #a39b8b;
+            --border-color: #332e29;
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Zen Maru Gothic', 'PingFang TC', sans-serif; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif TC', 'Playfair Display', serif;
         }
-        
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            line-height: 1.6;
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.8;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        header { 
-            background-color: #111726; 
-            color: var(--accent-gold); 
-            padding: 3.5rem 1rem; 
-            text-align: center; 
-            border-bottom: 1px solid var(--border-color);
-            width: 100%;
-        }
-        
-        header h1 { 
-            font-size: 2.2rem; 
-            margin-bottom: 8px; 
-            letter-spacing: 2px;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            letter-spacing: 1px;
-        }
-        
-        /* 導覽列：完美對齊首頁、故事、酒單與聯絡我們 */
-        nav { 
-            background-color: #111726; 
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
+        /* 3秒輪轉背景圖層 */
+        .hero-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
         }
-        
-        nav a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            margin: 0 18px; 
-            font-weight: 500; 
-            font-size: 1.05rem; 
+
+        .hero-slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: bgFade 6s infinite;
+        }
+
+        .hero-slideshow img:nth-child(1) { animation-delay: 0s; }
+        .hero-slideshow img:nth-child(2) { animation-delay: 3s; }
+
+        @keyframes bgFade {
+            0% { opacity: 0; transform: scale(1.02); }
+            12% { opacity: 0.55; }
+            48% { opacity: 0.55; }
+            60% { opacity: 0; transform: scale(1); }
+            100% { opacity: 0; }
+        }
+
+        /* 暗色漸層遮罩 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10, 10, 12, 0.7) 0%, rgba(10, 10, 12, 0.9) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 閃亮星光背景特效 */
+        .sparkle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            background-image: 
+                radial-gradient(white 1px, transparent 0),
+                radial-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 0);
+            background-size: 50px 50px, 80px 80px;
+            opacity: 0.15;
+            animation: twinkle 8s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.1; }
+            100% { opacity: 0.25; }
+        }
+
+        /* 頂端導覽列 */
+        nav {
+            position: relative;
+            z-index: 100;
+            background-color: rgba(15, 14, 14, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        nav .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
             transition: color 0.3s;
         }
-        
-        nav a:hover, nav a.active { 
-            color: var(--accent-gold); 
+
+        nav ul li a:hover {
+            color: var(--gold-primary);
         }
-        
-        .container { 
-            max-width: 800px; 
+
+        nav ul li a.active {
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+
+        /* 聯絡表單主體 */
+        .contact-container {
+            position: relative;
+            z-index: 3;
+            max-width: 680px;
+            margin: 50px auto;
+            background-color: rgba(23, 21, 21, 0.9);
+            padding: 40px;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .contact-container h1 {
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .contact-container p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        .form-group input, 
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            margin: 45px auto; 
-            padding: 0 20px; 
-        }
-
-        .card { 
-            background: var(--card-bg); 
-            border-radius: 20px; 
-            padding: 45px; 
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); 
-            border: 1px solid var(--border-color);
-        }
-
-        h2 { 
-            color: var(--accent-gold); 
-            margin-bottom: 25px; 
-            border-bottom: 2px solid var(--accent-gold); 
-            padding-bottom: 10px; 
-            text-align: center; 
-            font-size: 1.6rem;
-            letter-spacing: 1px;
-        }
-
-        .notice-box {
-            background-color: rgba(223, 177, 91, 0.08);
-            border: 1px solid rgba(223, 177, 91, 0.25);
-            border-radius: 14px;
-            padding: 18px 22px;
-            margin-bottom: 30px;
-            color: #e5d3a5;
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        
-        .form-group { 
-            margin-bottom: 22px; 
-        }
-
-        label { 
-            display: block; 
-            font-weight: 500; 
-            margin-bottom: 8px; 
-            color: var(--text-main); 
-        }
-
-        input, textarea, select { 
-            width: 100%; 
-            padding: 14px 18px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            font-size: 15px; 
-            background-color: #0b0f19;
+            padding: 12px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 4px;
+            background-color: rgba(10, 10, 12, 0.85);
+            font-size: 1rem;
             color: var(--text-main);
+            font-family: inherit;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            background-color: rgba(15, 14, 14, 0.95);
         }
 
-        input:focus, textarea:focus, select:focus { 
-            border-color: var(--accent-gold); 
-            box-shadow: 0 0 0 3px rgba(223, 177, 91, 0.15);
+        .submit-btn {
+            font-family: 'Cinzel', 'Noto Serif TC', serif;
+            width: 100%;
+            padding: 14px;
+            background-color: transparent;
+            color: var(--gold-light);
+            border: 1px solid var(--gold-primary);
+            border-radius: 4px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+            margin-top: 10px;
         }
 
-        button { 
-            width: 100%; 
-            background-color: var(--accent-gold); 
-            color: #0b0f19; 
-            padding: 15px; 
-            border: none; 
-            border-radius: 30px; 
-            font-size: 1rem; 
-            font-weight: 700; 
-            cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(223, 177, 91, 0.25);
-            transition: background 0.3s, transform 0.2s;
-            letter-spacing: 1px;
+        .submit-btn:hover {
+            background-color: var(--gold-primary);
+            color: var(--bg-deep);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
-        button:hover { 
-            background-color: var(--accent-hover); 
-            transform: translateY(-2px);
-        }
-        
-        footer { 
-            text-align: center; 
-            padding: 35px 20px; 
-            background-color: #111726; 
-            color: var(--text-muted); 
-            width: 100%; 
+        footer {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            margin-top: auto;
+            margin-top: 60px;
+            background-color: rgba(10, 10, 12, 0.9);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>🌌 星夜迴響 Midnight Bazaar</h1>
-        <p>深夜微醺與爵士樂的私密聚落｜線上訂位與專屬諮詢</p>
-    </header>
+    <!-- 3秒輪轉背景圖層 -->
+    <div class="hero-slideshow">
+        <img src="bar-interior.jfif" alt="微光吧台區">
+        <img src="lounge-right.jfif" alt="星光祕境沙發區">
+    </div>
 
-    <!-- 導覽列：完美串聯首頁、關於我們(故事)、微醺酒單、聯絡我們 -->
+    <div class="overlay"></div>
+    <div class="sparkle-bg"></div>
+
+    <!-- 導覽列 -->
     <nav>
-        <a href="index.html">首頁</a>
-        <a href="story.html">關於我們</a>
-        <a href="menu.html">微醺酒單</a>
-        <a href="contact.html" class="active">聯絡我們</a>
+        <a href="index.html" class="logo">Eclipse Atelier</a>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="story.html">關於我們</a></li>
+            <li><a href="bazaar.html">商隊品項</a></li>
+            <li><a href="contact.html" class="active">星夜迴響</a></li>
+        </ul>
     </nav>
 
-    <div class="container">
-        <div class="card">
-            <h2>✨ 質感訂位與私密諮詢</h2>
+    <!-- 聯絡表單主體：使用 Formspree 確保百分之百穩定收到信 -->
+    <div class="contact-container">
+        <h1>星夜迴響・聯絡我們</h1>
+        <p class="subtitle">若您對深夜饗宴或商隊選物有任何疑問，或欲留下您的迴響，請填寫下方信箋。</p>
+        
+        <form action="https://formspree.io/f/maeebrwz" method="POST">
+            <!-- 隱藏欄位設定 -->
+            <input type="hidden" name="_subject" value="【月蝕工坊】收到新的星夜迴響與聯絡訊息！">
+            <input type="hidden" name="_template" value="table">
 
-            <div class="notice-box">
-                🍸 <strong>訂位須知：</strong>為維護深夜微醺空間品質，訂位保留 10 分鐘。若有包場需求或特殊慶生安排，請於下方備註告知，將由專人與您聯繫。
+            <div class="form-group">
+                <label for="name">您的稱謂 / 靈魂代號</label>
+                <input type="text" id="name" name="貴賓姓名" required placeholder="例如：夜行者">
             </div>
-            
-            <!-- 使用確定能穩穩收到信的 Formspree 管道 -->
-            <form action="https://formspree.io/f/maeebrwz" method="POST">
-                <div class="form-group">
-                    <label for="name">貴賓姓名 *</label>
-                    <input type="text" id="name" name="貴賓姓名" required placeholder="例如：張先生 / Ms. Chang">
-                </div>
 
-                <div class="form-group">
-                    <label for="phone">連絡電話 *</label>
-                    <input type="tel" id="phone" name="連絡電話" required placeholder="例如：0912-345-678">
-                </div>
+            <div class="form-group">
+                <label for="email">電子信箱</label>
+                <input type="email" id="email" name="Email" required placeholder="your.email@domain.com">
+            </div>
 
-                <div class="form-group">
-                    <label for="email">電子信箱 *</label>
-                    <input type="email" id="email" name="Email" required placeholder="例如：yourname@email.com">
-                </div>
+            <div class="form-group">
+                <label for="message">迴響內容</label>
+                <textarea id="message" name="迴響內容" rows="5" required placeholder="寫下您的思緒與想說的話..."></textarea>
+            </div>
 
-                <div class="form-group">
-                    <label for="guests">預計訂位人數 *</label>
-                    <select id="guests" name="訂位人數" required>
-                        <option value="">請選擇人數</option>
-                        <option value="1-2位 漫調雙人座">1 - 2 位（漫調雙人座）</option>
-                        <option value="3-4位 微醺聚會桌">3 - 4 位（微醺聚會桌）</option>
-                        <option value="5位以上 星夜包廂/長桌">5 位以上（星夜包廂 / 質感長桌）</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="date">希望蒞臨日期與時間 *</label>
-                    <input type="datetime-local" id="date" name="蒞臨時間" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">備註需求（如：慶生佈置、過敏原、座位偏好等）</label>
-                    <textarea id="message" name="備註需求" rows="4" placeholder="例如：當天有壽星，希望能協助準備小驚喜..."></textarea>
-                </div>
-
-                <button type="submit">確認送出訂位與諮詢 🍸</button>
-            </form>
-        </div>
+            <button type="submit" class="submit-btn">傳遞深夜迴響</button>
+        </form>
     </div>
 
     <footer>
-        <p>&copy; 2026 Midnight Bazaar 星夜迴響. All Rights Reserved. 🌌</p>
+        &copy; 2026 月蝕工坊 Eclipse Atelier. All Rights Reserved. Dark Academia Web Design Project.
     </footer>
 
 </body>
